@@ -9,6 +9,18 @@ rescue LoadError
   require 'git-semaphore'
 end
 
+options = Trollop::options do
+  version "git-semaphore v0.0.1 Copyright (c) 2012 Peter Vandenberk"
+
+  banner <<-EOS
+Usage: git-semaphore [options]
+
+v0.0.1
+
+Options:
+EOS
+end
+
 fail "Coming soon!"
 
 # That's all, Folks!
