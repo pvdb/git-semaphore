@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+
+begin
+  require 'git-semaphore'
+rescue LoadError
+  require 'rubygems'
+  require 'git-semaphore'
+end
+
+fail "Coming soon!"
+
+# That's all, Folks!
