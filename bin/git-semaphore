@@ -10,15 +10,8 @@ rescue LoadError
 end
 
 options = Trollop::options do
-  version "git-semaphore v0.0.1 Copyright (c) 2012 Peter Vandenberk"
-
-  banner <<-EOS
-Usage: git-semaphore [options]
-
-v0.0.1
-
-Options:
-EOS
+  version Git::Semaphore::COPYRIGHT
+  banner Git::Semaphore::BANNER
 end
 
 fail "Coming soon!"

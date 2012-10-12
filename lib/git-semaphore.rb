@@ -1,4 +1,6 @@
 require "git-semaphore/version"
+require "git-semaphore/banner"
+require "git-semaphore/copyright"
 
 require 'trollop'
 
