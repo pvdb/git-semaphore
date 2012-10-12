@@ -20,4 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency('cucumber')
   gem.add_development_dependency('aruba')
   gem.add_development_dependency('methadone')
+  gem.add_development_dependency('guard-cucumber')
+  gem.add_development_dependency('rb-fsevent', ["~> 0.9.1"])
+  gem.add_development_dependency('growl')
 end
