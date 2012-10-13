@@ -14,6 +14,7 @@ options = Trollop::options do
   banner Git::Semaphore::BANNER
   opt :'check-token', 'Check auth token', :short => 't', :default => false
   opt :'check-project', 'Check project id', :short => 'p', :default => false
+  opt :'print-config', 'Print config', :short => 'c', :default => false
 end
 
 SEMAPHORE_AUTH_TOKEN = ENV['SEMAPHORE_AUTH_TOKEN']
@@ -35,6 +36,12 @@ if options[:'check-project']
   else
     exit 0
   end
+end
+
+if options[:'print-config']
+  puts "export SEMAPHORE_AUTH_TOKEN=\"#{SEMAPHORE_AUTH_TOKEN}\""
+  puts "export SEMAPHORE_PROJECT_ID=\"#{SEMAPHORE_PROJECT_ID}\""
+  exit 0
 end
 
 fail "Coming soon!"
