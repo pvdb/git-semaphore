@@ -18,7 +18,7 @@ options = Trollop::options do
 end
 
 SEMAPHORE_AUTH_TOKEN = ENV['SEMAPHORE_AUTH_TOKEN']
-SEMAPHORE_PROJECT_ID = ENV['SEMAPHORE_PROJECT_ID']
+SEMAPHORE_PROJECT_TOKEN = ENV['SEMAPHORE_PROJECT_TOKEN']
 
 if options[:'check-token']
   unless SEMAPHORE_AUTH_TOKEN
@@ -30,8 +30,8 @@ if options[:'check-token']
 end
 
 if options[:'check-project']
-  unless SEMAPHORE_PROJECT_ID
-    STDERR.puts 'Please set (and export) the SEMAPHORE_PROJECT_ID env var...'
+  unless SEMAPHORE_PROJECT_TOKEN
+    STDERR.puts 'Please set (and export) the SEMAPHORE_PROJECT_TOKEN env var...'
     exit -1
   else
     exit 0
@@ -40,7 +40,7 @@ end
 
 if options[:'print-config']
   puts "export SEMAPHORE_AUTH_TOKEN=\"#{SEMAPHORE_AUTH_TOKEN}\""
-  puts "export SEMAPHORE_PROJECT_ID=\"#{SEMAPHORE_PROJECT_ID}\""
+  puts "export SEMAPHORE_PROJECT_TOKEN=\"#{SEMAPHORE_PROJECT_TOKEN}\""
   exit 0
 end
 
