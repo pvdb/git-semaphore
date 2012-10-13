@@ -9,7 +9,7 @@ Feature: Always Carry Identification Wherever You Go
         """
         """
 
-  Scenario: run the main script with the project token set in the env
+  Scenario: run the main script with the project token not set in the env
 
     Given the "SEMAPHORE_PROJECT_TOKEN" env variable is not set
      When I run `git-semaphore --check-project`

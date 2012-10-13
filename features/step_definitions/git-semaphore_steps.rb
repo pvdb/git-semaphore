@@ -26,3 +26,15 @@ Given /^the "([A-Z_]+)" env variable is not set$/ do |variable_name|
   # reset it to its original state afer each scenario/step/...
   ENV.delete(variable_name)
 end
+
+Given /^an app instance is created with the following config:$/ do |config_table|
+  @app = Git::Semaphore::App.new(config_table.rows_hash)
+end
+
+Then /^the application uses "([^"]+)" as the auth token$/ do |auth_token|
+  (@app || Git::Semaphore::App.new(ENV)).auth_token.should eq auth_token
+end
+
+Then /^the application uses "([^"]+)" as the project token$/ do |project_token|
+  (@app || Git::Semaphore::App.new(ENV)).project_token.should eq project_token
+end

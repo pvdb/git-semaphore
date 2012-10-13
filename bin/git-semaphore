@@ -17,11 +17,10 @@ options = Trollop::options do
   opt :'print-config', 'Print config', :short => 'c', :default => false
 end
 
-SEMAPHORE_AUTH_TOKEN = ENV['SEMAPHORE_AUTH_TOKEN']
-SEMAPHORE_PROJECT_TOKEN = ENV['SEMAPHORE_PROJECT_TOKEN']
+app = Git::Semaphore::App.new(ENV)
 
 if options[:'check-token']
-  unless SEMAPHORE_AUTH_TOKEN
+  unless app.auth_token
     STDERR.puts 'Please set (and export) the SEMAPHORE_AUTH_TOKEN env var...'
     exit -1
   else
@@ -30,7 +29,7 @@ if options[:'check-token']
 end
 
 if options[:'check-project']
-  unless SEMAPHORE_PROJECT_TOKEN
+  unless app.project_token
     STDERR.puts 'Please set (and export) the SEMAPHORE_PROJECT_TOKEN env var...'
     exit -1
   else
@@ -39,8 +38,8 @@ if options[:'check-project']
 end
 
 if options[:'print-config']
-  puts "export SEMAPHORE_AUTH_TOKEN=\"#{SEMAPHORE_AUTH_TOKEN}\""
-  puts "export SEMAPHORE_PROJECT_TOKEN=\"#{SEMAPHORE_PROJECT_TOKEN}\""
+  puts "export SEMAPHORE_AUTH_TOKEN=\"#{app.auth_token}\""
+  puts "export SEMAPHORE_PROJECT_TOKEN=\"#{app.project_token}\""
   exit 0
 end
 

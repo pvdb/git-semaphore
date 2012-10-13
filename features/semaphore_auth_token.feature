@@ -9,7 +9,7 @@ Feature: How to Overcome Fear of Authority
         """
         """
 
-  Scenario: run the main script with the token set in the env
+  Scenario: run the main script with the token not set in the env
 
     Given the "SEMAPHORE_AUTH_TOKEN" env variable is not set
      When I run `git-semaphore --check-token`
