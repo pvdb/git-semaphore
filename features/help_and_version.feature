@@ -10,7 +10,7 @@ Feature: Help Me I've Got Versionitis
      And the following options should be documented:
        |--version, -v:|
        |--help, -h:|
-       |--check-token, -t:|
+       |--check-auth, -a:|
        |--check-project, -p:|
 
   Scenario: get the version of the main script

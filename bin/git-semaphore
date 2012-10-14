@@ -12,14 +12,14 @@ end
 options = Trollop::options do
   version Git::Semaphore::COPYRIGHT
   banner Git::Semaphore::BANNER
-  opt :'check-token', 'Check auth token', :short => 't', :default => false
-  opt :'check-project', 'Check project id', :short => 'p', :default => false
+  opt :'check-auth', 'Check auth token', :short => 'a', :default => false
+  opt :'check-project', 'Check project token', :short => 'p', :default => false
   opt :'print-config', 'Print config', :short => 'c', :default => false
 end
 
 app = Git::Semaphore::App.new(ENV)
 
-if options[:'check-token']
+if options[:'check-auth']
   unless app.auth_token
     STDERR.puts 'Please set (and export) the SEMAPHORE_AUTH_TOKEN env var...'
     exit -1

@@ -3,7 +3,6 @@ Feature: Configuration, Configuration, Configuration
   Scenario: create an app instance with custom config
 
     Given an app instance is created with the following config:
-      | key                     | value |
       | SEMAPHORE_AUTH_TOKEN    | foo   |
       | SEMAPHORE_PROJECT_TOKEN | bar   |
      Then the application uses "foo" as the auth token
