@@ -12,6 +12,7 @@ Feature: Help Me I've Got Versionitis
        |--help, -h:|
        |--check-auth, -a:|
        |--check-project, -p:|
+       |--print-config, -c:|
 
   Scenario: get the version of the main script
 
