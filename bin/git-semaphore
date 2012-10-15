@@ -26,7 +26,7 @@ if options[:'working-dir']
 end
 
 if options[:'check-auth']
-  unless app.auth_token
+  unless app.env_auth_token
     STDERR.puts 'Please set (and export) the SEMAPHORE_AUTH_TOKEN env var...'
     exit -1
   else
@@ -35,7 +35,7 @@ if options[:'check-auth']
 end
 
 if options[:'check-project']
-  unless app.project_token
+  unless app.env_project_token
     STDERR.puts 'Please set (and export) the SEMAPHORE_PROJECT_TOKEN env var...'
     exit -1
   else
@@ -44,8 +44,8 @@ if options[:'check-project']
 end
 
 if options[:'print-config']
-  puts "export SEMAPHORE_AUTH_TOKEN=\"#{app.auth_token}\""
-  puts "export SEMAPHORE_PROJECT_TOKEN=\"#{app.project_token}\""
+  puts "export SEMAPHORE_AUTH_TOKEN=\"#{app.env_auth_token}\""
+  puts "export SEMAPHORE_PROJECT_TOKEN=\"#{app.env_project_token}\""
   exit 0
 end
 

@@ -39,9 +39,9 @@ Given /^an app instance is created with the following config:$/ do |config_table
 end
 
 Then /^the application uses "([^"]+)" as the auth token$/ do |auth_token|
-  (@app || Git::Semaphore::App.new(ENV)).auth_token.should eq auth_token
+  (@app || Git::Semaphore::App.new(ENV)).env_auth_token.should eq auth_token
 end
 
 Then /^the application uses "([^"]+)" as the project token$/ do |project_token|
-  (@app || Git::Semaphore::App.new(ENV)).project_token.should eq project_token
+  (@app || Git::Semaphore::App.new(ENV)).env_project_token.should eq project_token
 end
