@@ -15,7 +15,8 @@ options = Trollop::options do
   opt :'working-dir', 'Print working dir', :short => 'w', :default => false
   opt :'check-auth', 'Check auth token', :short => 'a', :default => false
   opt :'check-project', 'Check project token', :short => 'p', :default => false
-  opt :'print-config', 'Print config', :short => 'c', :default => false
+  opt :'print-config', 'Print git config settings', :short => 'c', :default => false
+  opt :'print-env', 'Print environment settings', :short => 'e', :default => false
 end
 
 app = Git::Semaphore::App.new(ENV)
@@ -43,9 +44,15 @@ if options[:'check-project']
   end
 end
 
-if options[:'print-config']
+if options[:'print-env']
   puts "export SEMAPHORE_AUTH_TOKEN=\"#{app.env_auth_token}\""
   puts "export SEMAPHORE_PROJECT_TOKEN=\"#{app.env_project_token}\""
+  exit 0
+end
+
+if options[:'print-config']
+  puts "git config --local --replace-all semaphore.authtoken \"#{app.env_auth_token}\""
+  puts "git config --local --replace-all semaphorE_PROJECT_TOKEN=\"#{app.env_project_token}\""
   exit 0
 end
 
