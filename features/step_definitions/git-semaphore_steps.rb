@@ -1,8 +1,8 @@
 When /^I run `([^`]*)` in "([^"]*)" directory$/ do |cmd, working_dir|
   step %(a directory named "#{working_dir}")
-  cd working_dir ; in_current_dir do
-    step %(I run `#{cmd}`)
-  end
+  cd working_dir
+  step %(I run `#{cmd}`)
+  @dirs = ['tmp', 'aruba']
 end
 
 When /^I get the version of "([^"]*)"$/ do |app_name|
@@ -35,15 +35,23 @@ Given /^the "([A-Z_]+)" env variable is not set$/ do |variable_name|
 end
 
 Given /^an app instance is created with the following config:$/ do |config_table|
-  @app = Git::Semaphore::App.new(config_table.rows_hash)
+  @app = Git::Semaphore::App.new(nil, config_table.rows_hash)
 end
 
-Then /^the application uses "([^"]+)" as the auth token$/ do |auth_token|
-  (@app || Git::Semaphore::App.new(ENV)).env_auth_token.should eq auth_token
+Then /^the application uses "([^"]+)" as the git auth token$/ do |auth_token|
+  (@app || Git::Semaphore::App.new(@repo, ENV)).git_auth_token.should eq auth_token
 end
 
-Then /^the application uses "([^"]+)" as the project token$/ do |project_token|
-  (@app || Git::Semaphore::App.new(ENV)).env_project_token.should eq project_token
+Then /^the application uses "([^"]+)" as the git project token$/ do |project_token|
+  (@app || Git::Semaphore::App.new(@repo, ENV)).git_project_token.should eq project_token
+end
+
+Then /^the application uses "([^"]+)" as the env auth token$/ do |auth_token|
+  (@app || Git::Semaphore::App.new(@repo, ENV)).env_auth_token.should eq auth_token
+end
+
+Then /^the application uses "([^"]+)" as the env project token$/ do |project_token|
+  (@app || Git::Semaphore::App.new(@repo, ENV)).env_project_token.should eq project_token
 end
 
 Given /^an initialized git repository for project "([^"]*)"$/ do |project_name|

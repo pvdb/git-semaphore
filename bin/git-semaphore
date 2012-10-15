@@ -19,7 +19,8 @@ options = Trollop::options do
   opt :'print-env', 'Print environment settings', :short => 'e', :default => false
 end
 
-app = Git::Semaphore::App.new(ENV)
+repo = Grit::Repo.new(Dir.pwd) rescue nil
+app = Git::Semaphore::App.new(repo, ENV)
 
 if options[:'working-dir']
   puts Dir.pwd
@@ -51,8 +52,8 @@ if options[:'print-env']
 end
 
 if options[:'print-config']
-  puts "git config --local --replace-all semaphore.authtoken \"#{app.env_auth_token}\""
-  puts "git config --local --replace-all semaphorE_PROJECT_TOKEN=\"#{app.env_project_token}\""
+  puts "git config --local --replace-all semaphore.authtoken \"#{app.git_auth_token}\""
+  puts "git config --local --replace-all semaphore.projecttoken \"#{app.git_project_token}\""
   exit 0
 end
 

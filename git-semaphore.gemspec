@@ -20,6 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency('grit')
   gem.add_dependency('trollop')
 
+  gem.add_development_dependency('pry')
   gem.add_development_dependency('cucumber')
   gem.add_development_dependency('aruba')
   gem.add_development_dependency('methadone')
