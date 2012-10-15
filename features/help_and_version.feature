@@ -10,6 +10,7 @@ Feature: Help Me I've Got Versionitis
      And the following options should be documented:
        |--version, -v:|
        |--help, -h:|
+       |--working-dir, -w:|
        |--check-auth, -a:|
        |--check-project, -p:|
        |--print-config, -c:|

@@ -12,12 +12,18 @@ end
 options = Trollop::options do
   version Git::Semaphore::COPYRIGHT
   banner Git::Semaphore::BANNER
+  opt :'working-dir', 'Print working dir', :short => 'w', :default => false
   opt :'check-auth', 'Check auth token', :short => 'a', :default => false
   opt :'check-project', 'Check project token', :short => 'p', :default => false
   opt :'print-config', 'Print config', :short => 'c', :default => false
 end
 
 app = Git::Semaphore::App.new(ENV)
+
+if options[:'working-dir']
+  puts Dir.pwd
+  exit 0
+end
 
 if options[:'check-auth']
   unless app.auth_token

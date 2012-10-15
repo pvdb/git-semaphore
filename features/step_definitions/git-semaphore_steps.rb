@@ -1,3 +1,10 @@
+When /^I run `([^`]*)` in "([^"]*)" directory$/ do |cmd, working_dir|
+  step %(a directory named "#{working_dir}")
+  cd working_dir ; in_current_dir do
+    step %(I run `#{cmd}`)
+  end
+end
+
 When /^I get the version of "([^"]*)"$/ do |app_name|
   @app_name = app_name
   step %(I run `#{app_name} --version`)
