@@ -2,7 +2,7 @@ When /^I run `([^`]*)` in "([^"]*)" directory$/ do |cmd, working_dir|
   step %(a directory named "#{working_dir}")
   cd working_dir
   step %(I run `#{cmd}`)
-  @dirs = ['tmp', 'aruba']
+  @dirs = ['tmp', 'aruba'] # reset Aruba::API.current_dir
 end
 
 When /^I get the version of "([^"]*)"$/ do |app_name|

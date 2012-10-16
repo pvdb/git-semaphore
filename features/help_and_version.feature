@@ -13,8 +13,8 @@ Feature: Help Me I've Got Versionitis
        |--working-dir, -w:|
        |--check-auth, -a:|
        |--check-project, -p:|
-       |--print-env, -e:|
-       |--print-config, -c:|
+       |--env-config, -e:|
+       |--git-config, -g:|
 
   Scenario: get the version of the main script
 
