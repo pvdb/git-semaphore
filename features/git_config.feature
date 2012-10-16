@@ -2,8 +2,7 @@ Feature: Configuration, Configuration, Configuration
 
   Scenario: run the main script with tokens set in the git configuration
 
-    Given an initialized git repository for project "blegga"
-      And the following settings have been stored in the local git config:
+    Given a git repo in directory "blegga" with config:
         | semaphore.authtoken    | foo   |
         | semaphore.projecttoken | bar   |
     When I run `git-semaphore --git-config` in "blegga" directory
@@ -11,11 +10,9 @@ Feature: Configuration, Configuration, Configuration
      And the output should match /git config --local --replace-all semaphore.authtoken "foo"/
      And the output should match /git config --local --replace-all semaphore.projecttoken "bar"/
 
-  @wip
   Scenario: run the main script with the auth token set in the git config
 
-    Given an initialized git repository for project "blegga"
-      And the following settings have been stored in the local git config:
+    Given a git repo in directory "blegga" with config:
         | semaphore.authtoken    | foo   |
         | semaphore.projecttoken | bar   |
      Then the application uses "foo" as the git auth token

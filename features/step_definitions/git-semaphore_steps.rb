@@ -54,11 +54,8 @@ Then /^the application uses "([^"]+)" as the env project token$/ do |project_tok
   (@app || Git::Semaphore::App.new(@repo, ENV)).env_project_token.should eq project_token
 end
 
-Given /^an initialized git repository for project "([^"]*)"$/ do |project_name|
+Given /^a git repo in directory "([^"]*)" with config:$/ do |project_name, config_table|
   @repo = Grit::Repo.init(File.join(current_dir, project_name))
-end
-
-Given /^the following settings have been stored in the local git config:$/ do |config_table|
   config_table.rows_hash.each do |key, value|
     @repo.config[key] = value
   end
