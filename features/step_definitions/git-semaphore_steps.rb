@@ -65,3 +65,9 @@ Given /^a git repo in directory "([^"]*)" with config:$/ do |project_name, confi
     @repo.config[key] = value
   end
 end
+Given /^a runtime environment with config:$/ do |config_table|
+  config_table.rows_hash.each do |key, value|
+    set_env(key, value)
+  end
+end
+
