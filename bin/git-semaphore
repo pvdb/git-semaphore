@@ -28,8 +28,9 @@ if options[:'working-dir']
 end
 
 if options[:'check-auth']
-  unless app.env_auth_token
-    STDERR.puts 'Please set (and export) the SEMAPHORE_AUTH_TOKEN env var...'
+  unless app.auth_token
+    STDERR.puts 'Please set - and export - the SEMAPHORE_AUTH_TOKEN env variable'
+    STDERR.puts 'Alternatively, set semaphore.authtoken in your local git config'
     exit -1
   else
     exit 0
@@ -37,8 +38,9 @@ if options[:'check-auth']
 end
 
 if options[:'check-project']
-  unless app.env_project_token
-    STDERR.puts 'Please set (and export) the SEMAPHORE_PROJECT_TOKEN env var...'
+  unless app.project_token
+    STDERR.puts 'Please set - and export - the SEMAPHORE_PROJECT_TOKEN env variable'
+    STDERR.puts 'Alternatively, set semaphore.projecttoken in your local git config'
     exit -1
   else
     exit 0

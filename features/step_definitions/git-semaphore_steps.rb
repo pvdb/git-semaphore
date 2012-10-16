@@ -40,6 +40,11 @@ Given /^a git repo in directory "([^"]*)" with config:$/ do |project_name, confi
   end
 end
 
+Given /^"([^"]*)" git config is (not set|set) for git repo "([^"]*)"$/ do |key, is_or_isnt_set, project_name|
+  step %(a git repo in directory "#{project_name}")
+  @repo.config[key] = 'blegga' unless is_or_isnt_set == "not set"
+end
+
 #
 # Steps that interact with Dir.pwd
 #
