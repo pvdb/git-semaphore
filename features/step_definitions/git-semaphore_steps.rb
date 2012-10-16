@@ -1,9 +1,59 @@
+#
+# Steps that interact with ENV
+#
+
+Before do
+ set_env('SEMAPHORE_AUTH_TOKEN', nil)
+ set_env('SEMAPHORE_PROJECT_TOKEN', nil)
+end
+
+After do
+  restore_env
+end
+
+Given /^the "([A-Z_]+)" env variable is set(?: to "([^"]*)")?$/ do |key, value|
+  set_env(key, value || 'blegga')
+end
+
+Given /^the "([A-Z_]+)" env variable is not set$/ do |key|
+  set_env(key, nil)
+end
+
+Given /^a runtime environment with config:$/ do |config_table|
+  config_table.rows_hash.each do |key, value|
+    set_env(key, value)
+  end
+end
+
+#
+# Steps that interact with git
+#
+
+Given /^a git repo in directory "([^"]*)"$/ do |project_name|
+  @repo = Grit::Repo.init(File.join(current_dir, project_name))
+end
+
+Given /^a git repo in directory "([^"]*)" with config:$/ do |project_name, config_table|
+  step %(a git repo in directory "#{project_name}")
+  config_table.rows_hash.each do |key, value|
+    @repo.config[key] = value
+  end
+end
+
+#
+# Steps that interact with Dir.pwd
+#
+
 When /^I run `([^`]*)` in "([^"]*)" directory$/ do |cmd, working_dir|
   step %(a directory named "#{working_dir}")
   cd working_dir
   step %(I run `#{cmd}`)
   @dirs = ['tmp', 'aruba'] # reset Aruba::API.current_dir
 end
+
+#
+# Methodane/Aruba "extensions"/"customizations"
+#
 
 When /^I get the version of "([^"]*)"$/ do |app_name|
   @app_name = app_name
@@ -22,22 +72,9 @@ Then /^the output should include a copyright notice$/ do
   step %(the output should match /Copyright \\(c\\) [\\d]{4} [[\\w]+]+/)
 end
 
-Before do
- set_env('SEMAPHORE_AUTH_TOKEN', nil)
- set_env('SEMAPHORE_PROJECT_TOKEN', nil)
-end
-
-After do
-  restore_env
-end
-
-Given /^the "([A-Z_]+)" env variable is set(?: to "([^"]*)")?$/ do |key, value|
-  set_env(key, value || 'blegga')
-end
-
-Given /^the "([A-Z_]+)" env variable is not set$/ do |key|
-  set_env(key, nil)
-end
+#
+# Steps that check config expectations
+#
 
 Given /^an app instance is created with the following config:$/ do |config_table|
   @app = Git::Semaphore::App.new(nil, config_table.rows_hash)
@@ -73,21 +110,4 @@ end
 
 Then /^the application uses "([^"]+)" as the project token$/ do |project_token|
   (@app || Git::Semaphore::App.new(@repo, ENV)).project_token.should eq project_token
-end
-
-Given /^a git repo in directory "([^"]*)"$/ do |project_name|
-  @repo = Grit::Repo.init(File.join(current_dir, project_name))
-end
-
-Given /^a runtime environment with config:$/ do |config_table|
-  config_table.rows_hash.each do |key, value|
-    set_env(key, value)
-  end
-end
-
-Given /^a git repo in directory "([^"]*)" with config:$/ do |project_name, config_table|
-  step %(a git repo in directory "#{project_name}")
-  config_table.rows_hash.each do |key, value|
-    @repo.config[key] = value
-  end
 end
