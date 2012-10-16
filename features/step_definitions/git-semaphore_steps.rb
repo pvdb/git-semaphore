@@ -22,16 +22,21 @@ Then /^the output should include a copyright notice$/ do
   step %(the output should match /Copyright \\(c\\) [\\d]{4} [[\\w]+]+/)
 end
 
-Given /^the "([A-Z_]+)" env variable is set(?: to "([^"]*)")?$/ do |variable_name, value|
-  # FIXME don't use the actual Ruby ENV, or at the very least
-  # reset it to its original state afer each scenario/step/...
-  ENV[variable_name] = value || 'blegga'
+Before do
+ set_env('SEMAPHORE_AUTH_TOKEN', nil)
+ set_env('SEMAPHORE_PROJECT_TOKEN', nil)
 end
 
-Given /^the "([A-Z_]+)" env variable is not set$/ do |variable_name|
-  # FIXME don't use the actual Ruby ENV, or at the very least
-  # reset it to its original state afer each scenario/step/...
-  ENV.delete(variable_name)
+After do
+  restore_env
+end
+
+Given /^the "([A-Z_]+)" env variable is set(?: to "([^"]*)")?$/ do |key, value|
+  set_env(key, value || 'blegga')
+end
+
+Given /^the "([A-Z_]+)" env variable is not set$/ do |key|
+  set_env(key, nil)
 end
 
 Given /^an app instance is created with the following config:$/ do |config_table|
