@@ -18,4 +18,12 @@ class Git::Semaphore::App
 
   end
 
+  def auth_token
+    git_auth_token || env_auth_token
+  end
+
+  def project_token
+    git_project_token || env_project_token
+  end
+
 end

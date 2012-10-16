@@ -59,15 +59,35 @@ Then /^the application uses "([^"]+)" as the env project token$/ do |project_tok
   (@app || Git::Semaphore::App.new(@repo, ENV)).env_project_token.should eq project_token
 end
 
-Given /^a git repo in directory "([^"]*)" with config:$/ do |project_name, config_table|
-  @repo = Grit::Repo.init(File.join(current_dir, project_name))
-  config_table.rows_hash.each do |key, value|
-    @repo.config[key] = value
-  end
+Then /^the application doesn't have an auth token$/ do
+  (@app || Git::Semaphore::App.new(@repo, ENV)).auth_token.should be_nil
 end
+
+Then /^the application doesn't have a project token$/ do
+  (@app || Git::Semaphore::App.new(@repo, ENV)).project_token.should be_nil
+end
+
+Then /^the application uses "([^"]+)" as the auth token$/ do |auth_token|
+  (@app || Git::Semaphore::App.new(@repo, ENV)).auth_token.should eq auth_token
+end
+
+Then /^the application uses "([^"]+)" as the project token$/ do |project_token|
+  (@app || Git::Semaphore::App.new(@repo, ENV)).project_token.should eq project_token
+end
+
+Given /^a git repo in directory "([^"]*)"$/ do |project_name|
+  @repo = Grit::Repo.init(File.join(current_dir, project_name))
+end
+
 Given /^a runtime environment with config:$/ do |config_table|
   config_table.rows_hash.each do |key, value|
     set_env(key, value)
   end
 end
 
+Given /^a git repo in directory "([^"]*)" with config:$/ do |project_name, config_table|
+  step %(a git repo in directory "#{project_name}")
+  config_table.rows_hash.each do |key, value|
+    @repo.config[key] = value
+  end
+end
