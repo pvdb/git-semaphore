@@ -76,25 +76,21 @@ end
 # Steps that check config expectations
 #
 
-Given /^an app instance is created with the following config:$/ do |config_table|
-  @app = Git::Semaphore::App.new(nil, config_table.rows_hash)
-end
+# Then /^the application uses "([^"]+)" as the git auth token$/ do |auth_token|
+#   (@app || Git::Semaphore::App.new(@repo, ENV)).git_auth_token.should eq auth_token
+# end
 
-Then /^the application uses "([^"]+)" as the git auth token$/ do |auth_token|
-  (@app || Git::Semaphore::App.new(@repo, ENV)).git_auth_token.should eq auth_token
-end
+# Then /^the application uses "([^"]+)" as the git project token$/ do |project_token|
+#   (@app || Git::Semaphore::App.new(@repo, ENV)).git_project_token.should eq project_token
+# end
 
-Then /^the application uses "([^"]+)" as the git project token$/ do |project_token|
-  (@app || Git::Semaphore::App.new(@repo, ENV)).git_project_token.should eq project_token
-end
+# Then /^the application uses "([^"]+)" as the env auth token$/ do |auth_token|
+#   (@app || Git::Semaphore::App.new(@repo, ENV)).env_auth_token.should eq auth_token
+# end
 
-Then /^the application uses "([^"]+)" as the env auth token$/ do |auth_token|
-  (@app || Git::Semaphore::App.new(@repo, ENV)).env_auth_token.should eq auth_token
-end
-
-Then /^the application uses "([^"]+)" as the env project token$/ do |project_token|
-  (@app || Git::Semaphore::App.new(@repo, ENV)).env_project_token.should eq project_token
-end
+# Then /^the application uses "([^"]+)" as the env project token$/ do |project_token|
+#   (@app || Git::Semaphore::App.new(@repo, ENV)).env_project_token.should eq project_token
+# end
 
 Then /^the application doesn't have an auth token$/ do
   (@app || Git::Semaphore::App.new(@repo, ENV)).auth_token.should be_nil
