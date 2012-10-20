@@ -1,0 +1,76 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://semaphoreapp.com/api/v1/projects/649e584dc507ca4b73e1374d3125ef0b567a949c/89/status?auth_token=Yds3w6o26FLfJTnVK2y9
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - '200'
+      X-Powered-By:
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.13
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - ! '"c1bdb2043e1b1523c34cdeb47860d6c2"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Set-Cookie:
+      - _base-app_session=BAh7B0kiD3Nlc3Npb25faWQGOgZFRkkiJTY1Yzk0MzBhMzBhMzMxZGViMmQ2YjM2ZDEzMmNjYTUwBjsAVEkiGXdhcmRlbi51c2VyLnVzZXIua2V5BjsAVFsISSIJVXNlcgY7AEZbBmkCCANJIiIkMmEkMTAkN3VSVzl5MkpUMHVrdVA5TWVncEpYdQY7AFQ%3D--e5c2a33818fd15d965c8a7cbbb092d7c602516f5;
+        path=/; secure; HttpOnly
+      X-Request-Id:
+      - 45e070788bb4c7c80c85dea3a323bb2d
+      X-Runtime:
+      - '0.142061'
+      Date:
+      - Sat, 20 Oct 2012 12:15:21 GMT
+      X-Rack-Cache:
+      - miss
+      Server:
+      - nginx/1.2.1 + Phusion Passenger 3.0.13 (mod_rails/mod_rack)
+    body:
+      encoding: US-ASCII
+      string: ! '{
+   "branch_name": "gem_updates",
+   "branch_url": "https://semaphoreapp.com/projects/44/branches/50",
+   "branch_status_url": "http://semaphoreapp.com/api/v1/projects/649e584dc507ca4b73e1374d3125ef0b567a949c/89/status?auth_token=Yds3w6o26FLfJTnVK2y9",
+   "branch_history_url": "http://semaphoreapp.com/api/v1/projects/649e584dc507ca4b73e1374d3125ef0b567a949c/89?auth_token=Yds3w6o26FLfJTnVK2y9",
+   "project_name": "base-app",
+   "build_url": "https://semaphoreapp.com/projects/44/branches/50/builds/15",
+   "build_number": 15,
+   "result": "passed",
+   "started_at": "2012-07-09T15:23:53Z",
+   "finished_at": "2012-07-09T15:30:16Z",
+   "commit": {
+      "id": "dc395381e650f3bac18457909880829fc20e34ba",
+      "url": "https://github.com/renderedtext/base-app/commit/dc395381e650f3bac18457909880829fc20e34ba",
+      "author_name": "Vladimir Saric",
+      "author_email": "vladimir@renderedtext.com",
+      "message": "Update ''shoulda'' gem.",
+      "timestamp": "2012-07-04T18:14:08Z"
+   }
+}'
+    http_version: 
+  recorded_at: Sat, 20 Oct 2012 12:15:25 GMT
+recorded_with: VCR 2.2.5
