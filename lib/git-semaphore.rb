@@ -8,6 +8,7 @@ require "git-semaphore/banner"
 require "git-semaphore/copyright"
 
 require "git-semaphore/app"
+require "git-semaphore/api"
 
 module Git
   module Semaphore
