@@ -31,4 +31,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency('growl')
   gem.add_development_dependency('cucumber-pride')
   gem.add_development_dependency('jazor')
+  gem.add_development_dependency('json_spec')
 end
