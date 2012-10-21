@@ -3,7 +3,7 @@ Feature: How to Overcome Your Fear of Authority
   Scenario: run the main script with the auth token set in the env
 
     Given the "SEMAPHORE_AUTH_TOKEN" env variable is set
-     When I run `git-semaphore --check-auth`
+     When I run `git-semaphore --check-auth` in a git working dir
      Then the exit status should be 0
       And the stderr should contain exactly:
         """

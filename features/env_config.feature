@@ -5,7 +5,7 @@ Feature: Configuration, Configuration, Configuration
     Given a runtime environment with config:
       | SEMAPHORE_AUTH_TOKEN    | foo|
       | SEMAPHORE_PROJECT_TOKEN | bar|
-    When I run `git-semaphore --env-config`
+    When I run `git-semaphore --env-config` in a git working dir
     Then the exit status should be 0
      And the output should match /export SEMAPHORE_AUTH_TOKEN="foo"/
      And the output should match /export SEMAPHORE_PROJECT_TOKEN="bar"/
