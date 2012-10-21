@@ -1,3 +1,4 @@
+
 class Git::Semaphore::App
 
   attr_accessor :git_auth_token
@@ -8,9 +9,9 @@ class Git::Semaphore::App
 
   def initialize git_repo, config = ENV
 
-    if git_repo
-      self.git_auth_token = git_repo.config['semaphore.authtoken']
-      self.git_project_token = git_repo.config['semaphore.projecttoken']
+    if (@git_repo = git_repo)
+      self.git_auth_token = @git_repo.config['semaphore.authtoken']
+      self.git_project_token = @git_repo.config['semaphore.projecttoken']
     end
 
     self.env_auth_token = config['SEMAPHORE_AUTH_TOKEN']
@@ -24,6 +25,10 @@ class Git::Semaphore::App
 
   def project_token
     git_project_token || env_project_token
+  end
+
+  def branch_name
+    @git_repo.head.name
   end
 
 end

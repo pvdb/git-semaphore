@@ -35,6 +35,16 @@ if options[:'working-dir']
   exit 0
 end
 
+if options[:'project-name']
+  puts File.basename(Dir.pwd)
+  exit 0
+end
+
+if options[:'branch-name']
+  puts app.branch_name
+  exit 0
+end
+
 if options[:'check-auth']
   unless app.auth_token
     STDERR.puts 'Please set - and export - the SEMAPHORE_AUTH_TOKEN env variable'
