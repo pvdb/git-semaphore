@@ -27,7 +27,16 @@ options = Trollop::options do
 
 end
 
-app = Git::Semaphore::App.new(Dir.pwd, ENV)
+app = begin
+  Git::Semaphore::App.new(Dir.pwd, ENV)
+rescue Grit::InvalidGitRepositoryError
+  nil
+end
+
+unless app
+  STDERR.puts "Error: \"#{Dir.pwd}\" is not a git working directory... exiting!"
+  exit -1
+end
 
 if options[:'working-dir']
   puts app.working_dir
