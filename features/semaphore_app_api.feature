@@ -1,4 +1,4 @@
-Feature: Show Me My Projects
+Feature: Show Me What You've Got
 
   @vcr_api_projects
   Scenario: user's projects
