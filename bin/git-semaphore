@@ -10,13 +10,21 @@ rescue LoadError
 end
 
 options = Trollop::options do
+
   version Git::Semaphore::COPYRIGHT
   banner Git::Semaphore::BANNER
+
   opt :'working-dir', 'Print working dir', :short => 'w', :default => false
-  opt :'check-auth', 'Check auth token', :short => 'a', :default => false
-  opt :'check-project', 'Check project token', :short => 'p', :default => false
+  opt :'project-name', 'Print project name', :short => 'p', :default => false
+  opt :'branch-name', 'Print branch name', :short => 'b', :default => false
+
+  opt :'check-auth', 'Check auth token', :short => 'x', :default => false
+  opt :'check-project', 'Check project hash id', :short => 'y', :default => false
+  opt :'check-branch', 'Check branch id', :short => 'z', :default => false
+
   opt :'git-config', 'Print git settings', :short => 'g', :default => false
   opt :'env-config', 'Print environment settings', :short => 'e', :default => false
+
 end
 
 repo = Grit::Repo.new(Dir.pwd) rescue nil
