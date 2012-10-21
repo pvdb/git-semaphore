@@ -27,16 +27,15 @@ options = Trollop::options do
 
 end
 
-repo = Grit::Repo.new(Dir.pwd) rescue nil
-app = Git::Semaphore::App.new(repo, ENV)
+app = Git::Semaphore::App.new(Dir.pwd, ENV)
 
 if options[:'working-dir']
-  puts Dir.pwd
+  puts app.working_dir
   exit 0
 end
 
 if options[:'project-name']
-  puts File.basename(Dir.pwd)
+  puts app.project_name
   exit 0
 end
 
