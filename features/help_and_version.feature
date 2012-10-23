@@ -19,6 +19,7 @@ Feature: Help Me I've Got Versionitis
        | --env-config, -e:    |
        | --git-config, -g:    |
        | --projects, -r:      |
+       | --branches, -a:      |
 
   Scenario: get the version of the main script
 

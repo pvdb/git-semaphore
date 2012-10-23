@@ -1,3 +1,4 @@
+require 'json'
 
 class Git::Semaphore::App
 
@@ -40,8 +41,33 @@ class Git::Semaphore::App
   end
 
   def projects
-    uri = Git::Semaphore::Api.projects_uri(auth_token)
-    Git::Semaphore::Api.get_response(uri).body
+    @projects ||= begin
+      uri = Git::Semaphore::Api.projects_uri(auth_token)
+      Git::Semaphore::Api.get_response(uri).body
+    end
+  end
+
+  def branches
+    @branches ||= begin
+      uri = Git::Semaphore::Api.branches_uri(project_hash_id, auth_token)
+      Git::Semaphore::Api.get_response(uri).body
+    end
+  end
+
+  private
+
+  def project_hash_for project_name
+    JSON::parse(projects).find { |project_hash|
+      project_hash['name'] == project_name
+    }
+  end
+
+  def project_hash_id_for project_name
+    project_hash_for(project_name)['hash_id']
+  end
+
+  def project_hash_id
+    project_hash_id_for(project_name)
   end
 
 end

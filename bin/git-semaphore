@@ -15,6 +15,7 @@ options = Trollop::options do
   banner Git::Semaphore::BANNER
 
   opt :projects, 'List all semaphore.app projects', :short => nil, :default => false
+  opt :branches, 'List all semaphore.app branches for current project', :short => nil, :default => false
 
   opt :'working-dir', 'Print working dir', :short => 'w', :default => false
   opt :'project-name', 'Print project name', :short => 'p', :default => false
@@ -42,6 +43,11 @@ end
 
 if options[:projects]
   puts app.projects
+  exit 0
+end
+
+if options[:branches]
+  puts app.branches
   exit 0
 end
 
