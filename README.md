@@ -18,7 +18,23 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+All of the below examples need to be run from within a git directory.
+
+### listing of user’s projects
+
+    $ git semaphore --projects
+
+### listing of project’s branches
+
+    $ git semaphore --branches
+
+_(the project name is derived from the current git directory)_
+
+### status of a project’s branch
+
+    $ git semaphore --status
+
+_(the project and branch name are derived from the current git directory and the current git head)_
 
 ## Development
 
