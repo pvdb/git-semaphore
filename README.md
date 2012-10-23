@@ -20,6 +20,12 @@ Or install it yourself as:
 
 TODO: Write usage instructions here
 
+## Development
+
+    $ gem build git-semaphore.gemspec
+    $ # this will generate a 'git-semaphore-x.y.z.gem' file
+    $ gem install git-semaphore-x.y.z.gem
+
 ## Contributing
 
 1. Fork it
