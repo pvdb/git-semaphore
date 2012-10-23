@@ -1,6 +1,6 @@
 # Git::Semaphore
 
-git integration with https://semaphoreapp.com
+git integration with [semaphoreapp.com][semaphoreapp.com]
 
 ## Installation
 
@@ -15,6 +15,24 @@ And then execute:
 Or install it yourself as:
 
     $ gem install git-semaphore
+
+## Authentication
+
+Log into [semaphoreapp.com][semaphoreapp.com] and find your API `authentication token` in the `API` tab of one of your projects' `settings` page.
+
+Next, choose one of the following mechanisms to make your API `authentication token` available to `Git::Semaphore`...
+
+### via an environment variable
+
+    $ export SEMAPHORE_AUTH_TOKEN="Yds3w6o26FLfJTnVK2y9"
+
+### via `local` git config _(in a git working dir)_
+
+    $ git config --local --replace-all semaphore.authtoken "Yds3w6o26FLfJTnVK2y9"
+
+### via `global` git config
+
+    $ git config --global --replace-all semaphore.authtoken "Yds3w6o26FLfJTnVK2y9"
 
 ## Usage
 
@@ -49,3 +67,5 @@ _(the project and branch name are derived from the current git directory and the
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+[semaphoreapp.com]: https://semaphoreapp.com/
