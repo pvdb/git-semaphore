@@ -16,6 +16,7 @@ options = Trollop::options do
 
   opt :projects, 'List all semaphore.app projects', :short => nil, :default => false
   opt :branches, 'List all semaphore.app branches for current project', :short => nil, :default => false
+  opt :status, 'List the semaphore.app status for current branch', :short => nil, :default => false
 
   opt :'working-dir', 'Print working dir', :short => 'w', :default => false
   opt :'project-name', 'Print project name', :short => 'p', :default => false
@@ -48,6 +49,11 @@ end
 
 if options[:branches]
   puts app.branches
+  exit 0
+end
+
+if options[:status]
+  puts app.status
   exit 0
 end
 

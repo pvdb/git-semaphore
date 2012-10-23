@@ -20,6 +20,7 @@ Feature: Help Me I've Got Versionitis
        | --git-config, -g:    |
        | --projects, -r:      |
        | --branches, -a:      |
+       | --status, -s:        |
 
   Scenario: get the version of the main script
 

@@ -54,6 +54,13 @@ class Git::Semaphore::App
     end
   end
 
+  def status
+    @status ||= begin
+      uri = Git::Semaphore::Api.status_uri(project_hash_id, branch_id, auth_token)
+      Git::Semaphore::Api.get_response(uri).body
+    end
+  end
+
   private
 
   def project_hash_for project_name
@@ -68,6 +75,20 @@ class Git::Semaphore::App
 
   def project_hash_id
     project_hash_id_for(project_name)
+  end
+
+  def branch_hash_for branch_name
+    JSON::parse(branches).find { |branch_hash|
+      branch_hash['name'] == branch_name
+    }
+  end
+
+  def branch_id_for branch_name
+    branch_hash_for(branch_name)['id']
+  end
+
+  def branch_id
+    branch_id_for(branch_name).to_s
   end
 
 end
