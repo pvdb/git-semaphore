@@ -39,4 +39,9 @@ class Git::Semaphore::App
     @git_repo.head.name
   end
 
+  def projects
+    uri = Git::Semaphore::Api.projects_uri(auth_token)
+    Git::Semaphore::Api.get_response(uri).body
+  end
+
 end

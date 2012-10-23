@@ -14,6 +14,8 @@ options = Trollop::options do
   version Git::Semaphore::COPYRIGHT
   banner Git::Semaphore::BANNER
 
+  opt :projects, 'List all semaphore.app projects', :short => nil, :default => false
+
   opt :'working-dir', 'Print working dir', :short => 'w', :default => false
   opt :'project-name', 'Print project name', :short => 'p', :default => false
   opt :'branch-name', 'Print branch name', :short => 'b', :default => false
@@ -36,6 +38,11 @@ end
 unless app
   STDERR.puts "Error: \"#{Dir.pwd}\" is not a git working directory... exiting!"
   exit -1
+end
+
+if options[:projects]
+  puts app.projects
+  exit 0
 end
 
 if options[:'working-dir']

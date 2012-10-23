@@ -1,6 +1,9 @@
+require 'uri'
+require 'net/http'
+
 module Git
   module Semaphore
-    module Api
+    class Api
 
       # http://docs.semaphoreapp.com/api
 
@@ -34,7 +37,7 @@ module Git
       # helper functions
 
       def self.get_response uri
-        Net::HTTP.start(uri.host, uri.port, :use_ssl => (uri.scheme == 'https'), :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |net_http|
+        ::Net::HTTP.start(uri.host, uri.port, :use_ssl => (uri.scheme == 'https'), :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |net_http|
           net_http.get(uri.request_uri)
         end
       end
