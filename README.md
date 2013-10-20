@@ -1,5 +1,7 @@
 # Git::Semaphore
 
+https://semaphoreapp.com/api/v1/projects/03b2dffc7112138851166c86adb456484426a712/7753/badge.png
+
 git integration with [semaphoreapp.com][semaphoreapp.com]
 
 ## Installation
