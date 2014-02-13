@@ -9,9 +9,12 @@ class Git::Semaphore::App
   attr_accessor :env_project_token
 
   attr_accessor :working_dir
+  attr_writer   :branch_name
 
   def initialize working_dir, config = ENV
     self.working_dir = working_dir
+
+    self.branch_name = config['BRANCH']
 
     self.git_auth_token = @git_repo.config['semaphore.authtoken']
     self.git_project_token = @git_repo.config['semaphore.projecttoken']
@@ -26,7 +29,7 @@ class Git::Semaphore::App
   end
 
   def validate
-    git_repo
+    ![ nil, '' ].include? branch_name.gsub(/\s+/, '')
   end
 
   def auth_token
@@ -42,6 +45,7 @@ class Git::Semaphore::App
   end
 
   def branch_name
+    return @branch_name if defined? @branch_name
     git_repo.head.name
   end
 
