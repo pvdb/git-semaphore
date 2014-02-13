@@ -16,7 +16,7 @@ options = Trollop::options do
 
   opt :projects, 'List all semaphore.app projects', :short => nil, :default => false
   opt :branches, 'List all semaphore.app branches for current project', :short => nil, :default => false
-  opt :status, 'List the semaphore.app status for current branch', :short => nil, :default => false
+  opt :status, 'List the semaphore.app status for the given branch', :short => nil, :default => false
 
   opt :'working-dir', 'Print working dir', :short => 'w', :default => false
   opt :'project-name', 'Print project name', :short => 'p', :default => false
@@ -32,7 +32,7 @@ options = Trollop::options do
 end
 
 app = begin
-  Git::Semaphore::App.new(Dir.pwd, ENV)
+  Git::Semaphore::App.new(Dir.pwd, ENV).tap { |a| a.validate }
 rescue Grit::InvalidGitRepositoryError
   nil
 end

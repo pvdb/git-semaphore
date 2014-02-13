@@ -8,9 +8,10 @@ class Git::Semaphore::App
   attr_accessor :env_auth_token
   attr_accessor :env_project_token
 
-  def initialize working_dir, config = ENV
+  attr_accessor :working_dir
 
-    @git_repo = Grit::Repo.new(working_dir)
+  def initialize working_dir, config = ENV
+    self.working_dir = working_dir
 
     self.git_auth_token = @git_repo.config['semaphore.authtoken']
     self.git_project_token = @git_repo.config['semaphore.projecttoken']
@@ -18,6 +19,14 @@ class Git::Semaphore::App
     self.env_auth_token = config['SEMAPHORE_AUTH_TOKEN']
     self.env_project_token = config['SEMAPHORE_PROJECT_TOKEN']
 
+  end
+
+  def git_repo
+    @git_repo ||= Grit::Repo.new(working_dir)
+  end
+
+  def validate
+    git_repo
   end
 
   def auth_token
@@ -28,16 +37,12 @@ class Git::Semaphore::App
     git_project_token || env_project_token
   end
 
-  def working_dir
-    @git_repo.working_dir
-  end
-
   def project_name
-    File.basename(@git_repo.working_dir)
+    File.basename(working_dir)
   end
 
   def branch_name
-    @git_repo.head.name
+    git_repo.head.name
   end
 
   def projects
