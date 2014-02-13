@@ -2,26 +2,31 @@ require 'json'
 
 class Git::Semaphore::App
 
-  attr_accessor :git_auth_token
-  attr_accessor :git_project_token
-
   attr_accessor :env_auth_token
   attr_accessor :env_project_token
 
   attr_accessor :working_dir
   attr_writer   :branch_name
+  attr_accessor :commit
+  attr_writer   :project_name
 
   def initialize working_dir, config = ENV
     self.working_dir = working_dir
 
+    self.project_name = config['PROJECT']
     self.branch_name = config['BRANCH']
-
-    self.git_auth_token = @git_repo.config['semaphore.authtoken']
-    self.git_project_token = @git_repo.config['semaphore.projecttoken']
+    self.commit = config['COMMIT']
 
     self.env_auth_token = config['SEMAPHORE_AUTH_TOKEN']
     self.env_project_token = config['SEMAPHORE_PROJECT_TOKEN']
+  end
 
+  def git_auth_token
+    git_repo.config['semaphore.authtoken']
+  end
+
+  def git_project_token
+    git_repo.config['semaphore.projecttoken']
   end
 
   def git_repo
@@ -29,7 +34,7 @@ class Git::Semaphore::App
   end
 
   def validate
-    ![ nil, '' ].include? branch_name.gsub(/\s+/, '')
+    '' != branch_name.to_s.gsub(/\s+/, '')
   end
 
   def auth_token
@@ -41,7 +46,8 @@ class Git::Semaphore::App
   end
 
   def project_name
-    File.basename(working_dir)
+    return @project_name if defined? @project_name
+    File.basename working_dir
   end
 
   def branch_name
@@ -68,6 +74,13 @@ class Git::Semaphore::App
       uri = Git::Semaphore::Api.status_uri(project_hash_id, branch_id, auth_token)
       Git::Semaphore::Api.get_response(uri).body
     end
+  end
+
+  def commit_status
+    uri = Git::Semaphore::Api.history_uri(project_hash_id, branch_id, auth_token)
+    j = Git::Semaphore::Api.get_response(uri).body
+    builds = JSON.parse(j)['builds']
+    build = builds.detect { |b| b['commit']['id'] == commit }
   end
 
   private

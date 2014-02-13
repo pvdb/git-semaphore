@@ -17,6 +17,7 @@ options = Trollop::options do
   opt :projects, 'List all semaphore.app projects', :short => nil, :default => false
   opt :branches, 'List all semaphore.app branches for current project', :short => nil, :default => false
   opt :status, 'List the semaphore.app status for the given branch', :short => nil, :default => false
+  opt :'commit-status', 'Check commit status', :default => false
 
   opt :'working-dir', 'Print working dir', :short => 'w', :default => false
   opt :'project-name', 'Print project name', :short => 'p', :default => false
@@ -40,6 +41,11 @@ end
 unless app
   STDERR.puts "Error: \"#{Dir.pwd}\" is not a git working directory... exiting!"
   exit -1
+end
+
+if options[:'commit-status']
+  puts app.commit_status
+  exit 0
 end
 
 if options[:projects]
