@@ -32,15 +32,14 @@ options = Trollop::options do
 
 end
 
-app = begin
-  Git::Semaphore::App.new(Dir.pwd, ENV).tap { |a| a.validate }
-rescue Grit::InvalidGitRepositoryError
-  nil
-end
+app = Git::Semaphore::App.new(Dir.pwd, ENV)
 
-unless app
-  STDERR.puts "Error: \"#{Dir.pwd}\" is not a git working directory... exiting!"
-  exit -1
+if !app.validate
+  r = app.git_repo rescue false
+  unless r
+    STDERR.puts "Error: \"#{Dir.pwd}\" is not a git working directory... exiting!"
+    exit 255
+  end
 end
 
 if options[:'commit-status']

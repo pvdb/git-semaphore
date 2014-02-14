@@ -35,6 +35,8 @@ class Git::Semaphore::App
 
   def validate
     '' != branch_name.to_s.gsub(/\s+/, '')
+  rescue
+    false
   end
 
   def auth_token
@@ -46,12 +48,12 @@ class Git::Semaphore::App
   end
 
   def project_name
-    return @project_name if defined? @project_name
+    return @project_name unless @project_name.nil?
     File.basename working_dir
   end
 
   def branch_name
-    return @branch_name if defined? @branch_name
+    return @branch_name unless @branch_name.nil?
     git_repo.head.name
   end
 
