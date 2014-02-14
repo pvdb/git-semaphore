@@ -16,7 +16,8 @@ options = Trollop::options do
 
   opt :projects, 'List all semaphore.app projects', :short => nil, :default => false
   opt :branches, 'List all semaphore.app branches for current project', :short => nil, :default => false
-  opt :status, 'List the semaphore.app status for current branch', :short => nil, :default => false
+  opt :status, 'List the semaphore.app status for the given branch', :short => nil, :default => false
+  opt :'commit-status', 'Check commit status', :default => false
 
   opt :'working-dir', 'Print working dir', :short => 'w', :default => false
   opt :'project-name', 'Print project name', :short => 'p', :default => false
@@ -31,15 +32,19 @@ options = Trollop::options do
 
 end
 
-app = begin
-  Git::Semaphore::App.new(Dir.pwd, ENV)
-rescue Grit::InvalidGitRepositoryError
-  nil
+app = Git::Semaphore::App.new(Dir.pwd, ENV)
+
+if !app.validate
+  r = app.git_repo rescue false
+  unless r
+    STDERR.puts "Error: \"#{Dir.pwd}\" is not a git working directory... exiting!"
+    exit 255
+  end
 end
 
-unless app
-  STDERR.puts "Error: \"#{Dir.pwd}\" is not a git working directory... exiting!"
-  exit -1
+if options[:'commit-status']
+  puts app.commit_status
+  exit 0
 end
 
 if options[:projects]
