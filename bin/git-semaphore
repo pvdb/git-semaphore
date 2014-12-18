@@ -18,6 +18,7 @@ options = Trollop::options do
   opt :branches, 'List all semaphore.app branches for current project', :short => nil, :default => false
   opt :status, 'List the semaphore.app status for the given branch', :short => nil, :default => false
   opt :'commit-status', 'Check commit status', :default => false
+  opt :'rebuild-last-revision', 'Rebuild last revision', :default => false
 
   opt :'working-dir', 'Print working dir', :short => 'w', :default => false
   opt :'project-name', 'Print project name', :short => 'p', :default => false
@@ -40,6 +41,11 @@ if !app.validate
     STDERR.puts "Error: \"#{Dir.pwd}\" is not a git working directory... exiting!"
     exit 255
   end
+end
+
+if options[:'rebuild-last-revision']
+  puts app.rebuild_last_revision
+  exit 0
 end
 
 if options[:'commit-status']
