@@ -21,6 +21,7 @@ Feature: Help Me I've Got Versionitis
        | --projects, -r:      |
        | --branches, -a:      |
        | --status, -s:        |
+       | --commit-status, -c: |
 
   Scenario: get the version of the main script
 
