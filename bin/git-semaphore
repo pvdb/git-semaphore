@@ -4,6 +4,8 @@ $LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 
 begin
   require 'git-semaphore'
+  require 'bundler'
+  Bundler.setup
 rescue LoadError
   require 'rubygems'
   require 'git-semaphore'
