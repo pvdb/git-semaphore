@@ -40,17 +40,17 @@ Next, choose one of the following mechanisms to make your API `authentication to
 
 All of the below examples need to be run from within a git directory.
 
-### listing of user’s projects
+### listing of user's projects
 
     $ git semaphore --projects
 
-### listing of project’s branches
+### listing of project's branches
 
     $ git semaphore --branches
 
 _(the project name is derived from the current git directory)_
 
-### status of a project’s branch
+### status of a project's branch
 
     $ git semaphore --status
 
