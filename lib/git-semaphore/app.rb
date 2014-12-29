@@ -86,7 +86,7 @@ class Git::Semaphore::App
   end
 
   def rebuild_last_revision
-    uri = Git::Semaphore::Api.build_last_revision_uri(project_hash_id, branch_id, auth_token)
+    uri = Git::Semaphore::Api.last_revision_uri(project_hash_id, branch_id, auth_token)
     Git::Semaphore::Api.get_response(uri, :post).body
   end
 

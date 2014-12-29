@@ -26,7 +26,7 @@ module Git
         build_request_uri(auth_token, :path => File.join(SEMAPHORE_API_URI, 'projects', project_hash_id, branch_id))
       end
 
-      def self.build_last_revision_uri project_hash_id, branch_id, auth_token
+      def self.last_revision_uri project_hash_id, branch_id, auth_token
         build_request_uri(auth_token, :path => File.join(SEMAPHORE_API_URI, 'projects', project_hash_id, branch_id, 'build'))
       end
 

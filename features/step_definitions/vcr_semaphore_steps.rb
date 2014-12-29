@@ -17,7 +17,7 @@ Given /^get the build status of one of the branches for one of my projects via t
 end
 
 Given /^request to rebuild the last revision of one of the branches for one of my projects via their API$/ do
-  @response = Git::Semaphore::Api.get_response Git::Semaphore::Api.build_last_revision_uri(@project, @branch, @auth_token), :post
+  @response = Git::Semaphore::Api.get_response Git::Semaphore::Api.last_revision_uri(@project, @branch, @auth_token), :post
 end
 
 def last_json
