@@ -11,23 +11,23 @@ module Git
       SEMAPHORE_API_URI = '/api/v1'
 
       def self.projects_uri auth_token
-        build_request_uri(auth_token, :path => File.join(SEMAPHORE_API_URI, 'projects'))
+        request_uri(auth_token, :path => File.join(SEMAPHORE_API_URI, 'projects'))
       end
 
       def self.branches_uri project_hash_id, auth_token
-        build_request_uri(auth_token, :path => File.join(SEMAPHORE_API_URI, 'projects', project_hash_id, 'branches'))
+        request_uri(auth_token, :path => File.join(SEMAPHORE_API_URI, 'projects', project_hash_id, 'branches'))
       end
 
       def self.status_uri project_hash_id, branch_id, auth_token
-        build_request_uri(auth_token, :path => File.join(SEMAPHORE_API_URI, 'projects', project_hash_id, branch_id, 'status'))
+        request_uri(auth_token, :path => File.join(SEMAPHORE_API_URI, 'projects', project_hash_id, branch_id, 'status'))
       end
 
       def self.history_uri project_hash_id, branch_id, auth_token
-        build_request_uri(auth_token, :path => File.join(SEMAPHORE_API_URI, 'projects', project_hash_id, branch_id))
+        request_uri(auth_token, :path => File.join(SEMAPHORE_API_URI, 'projects', project_hash_id, branch_id))
       end
 
       def self.last_revision_uri project_hash_id, branch_id, auth_token
-        build_request_uri(auth_token, :path => File.join(SEMAPHORE_API_URI, 'projects', project_hash_id, branch_id, 'build'))
+        request_uri(auth_token, :path => File.join(SEMAPHORE_API_URI, 'projects', project_hash_id, branch_id, 'build'))
       end
 
       # helper functions
@@ -45,14 +45,14 @@ module Git
         end
       end
 
-      def self.build_request_uri auth_token, options={}
+      def self.request_uri auth_token, options={}
         URI::HTTPS.build(
           { :host  => SEMAPHORE_API_HOST,
             :query => "auth_token=#{auth_token}"
           }.merge(options)
         )
       end
-      private_class_method(:build_request_uri)
+      private_class_method(:request_uri)
 
     end
   end
