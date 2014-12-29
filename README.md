@@ -1,6 +1,6 @@
 # Git::Semaphore
 
-![SEMAPHORE BADGE](https://semaphoreapp.com/api/v1/projects/03b2dffc7112138851166c86adb456484426a712/7753/badge.png)
+[![Build Status](https://semaphoreapp.com/api/v1/projects/03b2dffc7112138851166c86adb456484426a712/7753/badge.png)](https://semaphoreapp.com/pvdb/git-semaphore)
 
 git integration with [semaphoreapp.com][semaphoreapp.com]
 
