@@ -2,6 +2,8 @@
 
 [![Build Status](https://semaphoreapp.com/api/v1/projects/03b2dffc7112138851166c86adb456484426a712/7753/badge.png)](https://semaphoreapp.com/pvdb/git-semaphore)
 
+[![Travis CI](https://travis-ci.org/pvdb/git-semaphore.svg?branch=v0.0.6)](https://travis-ci.org/pvdb/git-semaphore)
+
 git integration with [semaphoreapp.com][semaphoreapp.com]
 
 ## Installation
