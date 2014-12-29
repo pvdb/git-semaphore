@@ -8,19 +8,21 @@ Feature: Help Me I've Got Versionitis
      And the banner should include the version
      And the banner should document that this app takes options
      And the following options should be documented:
-       | --version, -v:       |
-       | --help, -h:          |
-       | --working-dir, -w:   |
-       | --project-name, -p:  |
-       | --branch-name, -b:   |
-       | --check-auth, -x:    |
-       | --check-project, -y: |
-       | --check-branch, -z:  |
-       | --env-config, -e:    |
-       | --git-config, -g:    |
-       | --projects, -r:      |
-       | --branches, -a:      |
-       | --status, -s:        |
+       | --version, -v:               |
+       | --help, -h:                  |
+       | --working-dir, -w:           |
+       | --project-name, -p:          |
+       | --branch-name, -b:           |
+       | --check-auth, -x:            |
+       | --check-project, -y:         |
+       | --check-branch, -z:          |
+       | --env-config, -e:            |
+       | --git-config, -g:            |
+       | --projects, -r:              |
+       | --branches, -a:              |
+       | --status, -s:                |
+       | --commit-status, -c:         |
+       | --rebuild-last-revision, -u: |
 
   Scenario: get the version of the main script
 

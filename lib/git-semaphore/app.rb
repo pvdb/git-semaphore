@@ -85,6 +85,11 @@ class Git::Semaphore::App
     build = builds.detect { |b| b['commit']['id'] == commit }
   end
 
+  def rebuild_last_revision
+    uri = Git::Semaphore::Api.last_revision_uri(project_hash_id, branch_id, auth_token)
+    Git::Semaphore::Api.get_response(uri, :post).body
+  end
+
   private
 
   def project_hash_for project_name

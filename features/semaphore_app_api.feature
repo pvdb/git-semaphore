@@ -20,3 +20,10 @@ Feature: Show Me What You've Got
     Given I am an authenticated user on semaphoreapp.com
       And get the build status of one of the branches for one of my projects via their API
      Then the JSON should be a hash
+
+  @vcr_api_rebuild_last_revision
+  Scenario: Rebuild last revision
+
+    Given I am an authenticated user on semaphoreapp.com
+      And request to rebuild the last revision of one of the branches for one of my projects via their API
+     Then the JSON should be a hash

@@ -10,4 +10,5 @@ VCR.cucumber_tags do |t|
   t.tag '@vcr_api_projects'
   t.tag '@vcr_api_branches'
   t.tag '@vcr_api_status'
+  t.tag '@vcr_api_rebuild_last_revision'
 end

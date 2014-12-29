@@ -71,6 +71,6 @@ http_interactions:
       "timestamp": "2012-07-04T18:14:08Z"
    }
 }'
-    http_version: 
+    http_version:
   recorded_at: Sat, 20 Oct 2012 12:15:25 GMT
 recorded_with: VCR 2.2.5
