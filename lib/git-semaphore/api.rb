@@ -1,5 +1,6 @@
 require 'uri'
 require 'net/http'
+require 'openssl'
 
 module Git
   module Semaphore
@@ -33,7 +34,7 @@ module Git
       # helper functions
 
       def self.get_response uri, action=:get
-        ::Net::HTTP.start(uri.host, uri.port, :use_ssl => (uri.scheme == 'https'), :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |net_http|
+        ::Net::HTTP.start(uri.host, uri.port, :use_ssl => (uri.scheme == 'https'), :verify_mode => ::OpenSSL::SSL::VERIFY_NONE) do |net_http|
           case action
           when :get
             net_http.get uri.request_uri
