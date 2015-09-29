@@ -1,10 +1,10 @@
 #
-# Steps that interact with ENV
+# Steps that interact with ENV (via `aruba.environment`)
 #
 
 Before do
- set_env('SEMAPHORE_AUTH_TOKEN', nil)
- set_env('SEMAPHORE_PROJECT_TOKEN', nil)
+ set_environment_variable('SEMAPHORE_AUTH_TOKEN', nil)
+ set_environment_variable('SEMAPHORE_PROJECT_TOKEN', nil)
 end
 
 After do
@@ -12,16 +12,16 @@ After do
 end
 
 Given /^the "([A-Z_]+)" env variable is set(?: to "([^"]*)")?$/ do |key, value|
-  set_env(key, value || 'blegga')
+  set_environment_variable(key, value || 'blegga')
 end
 
 Given /^the "([A-Z_]+)" env variable is not set$/ do |key|
-  set_env(key, nil)
+  set_environment_variable(key, nil)
 end
 
 Given /^a runtime environment with config:$/ do |config_table|
   config_table.rows_hash.each do |key, value|
-    set_env(key, value)
+    set_environment_variable(key, value)
   end
 end
 
@@ -30,7 +30,7 @@ end
 #
 
 Given /^a git repo in directory "([^"]*)"$/ do |project_name|
-  @pwd = File.join(current_dir, project_name)
+  @pwd = File.join(expand_path('.'), project_name)
   @repo = Grit::Repo.init(@pwd)
 end
 
@@ -89,33 +89,33 @@ end
 #
 
 # Then /^the application uses "([^"]+)" as the git auth token$/ do |auth_token|
-#   (@app || Git::Semaphore::App.new(@repo, ENV)).git_auth_token.should eq auth_token
+#   (@app || Git::Semaphore::App.new(@repo, aruba.environment)).git_auth_token.should eq auth_token
 # end
 
 # Then /^the application uses "([^"]+)" as the git project token$/ do |project_token|
-#   (@app || Git::Semaphore::App.new(@repo, ENV)).git_project_token.should eq project_token
+#   (@app || Git::Semaphore::App.new(@repo, aruba.environment)).git_project_token.should eq project_token
 # end
 
 # Then /^the application uses "([^"]+)" as the env auth token$/ do |auth_token|
-#   (@app || Git::Semaphore::App.new(@repo, ENV)).env_auth_token.should eq auth_token
+#   (@app || Git::Semaphore::App.new(@repo, aruba.environment)).env_auth_token.should eq auth_token
 # end
 
 # Then /^the application uses "([^"]+)" as the env project token$/ do |project_token|
-#   (@app || Git::Semaphore::App.new(@repo, ENV)).env_project_token.should eq project_token
+#   (@app || Git::Semaphore::App.new(@repo, aruba.environment)).env_project_token.should eq project_token
 # end
 
 Then /^the application doesn't have an auth token$/ do
-  (@app || Git::Semaphore::App.new(@pwd, ENV)).auth_token.should be_nil
+  (@app || Git::Semaphore::App.new(@pwd, aruba.environment)).auth_token.should be_empty
 end
 
 Then /^the application doesn't have a project token$/ do
-  (@app || Git::Semaphore::App.new(@pwd, ENV)).project_token.should be_nil
+  (@app || Git::Semaphore::App.new(@pwd, aruba.environment)).project_token.should be_empty
 end
 
 Then /^the application uses "([^"]+)" as the auth token$/ do |auth_token|
-  (@app || Git::Semaphore::App.new(@pwd, ENV)).auth_token.should eq auth_token
+  (@app || Git::Semaphore::App.new(@pwd, aruba.environment)).auth_token.should eq auth_token
 end
 
 Then /^the application uses "([^"]+)" as the project token$/ do |project_token|
-  (@app || Git::Semaphore::App.new(@pwd, ENV)).project_token.should eq project_token
+  (@app || Git::Semaphore::App.new(@pwd, aruba.environment)).project_token.should eq project_token
 end

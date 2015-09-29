@@ -86,7 +86,7 @@ if options[:'branch-name']
 end
 
 if options[:'check-auth']
-  unless app.auth_token
+  unless app.auth_token && !app.auth_token.empty?
     STDERR.puts 'Please set - and export - the SEMAPHORE_AUTH_TOKEN env variable'
     STDERR.puts 'Alternatively, set semaphore.authtoken in your local git config'
     exit -1
@@ -96,7 +96,7 @@ if options[:'check-auth']
 end
 
 if options[:'check-project']
-  unless app.project_token
+  unless app.project_token && !app.project_token.empty?
     STDERR.puts 'Please set - and export - the SEMAPHORE_PROJECT_TOKEN env variable'
     STDERR.puts 'Alternatively, set semaphore.projecttoken in your local git config'
     exit -1

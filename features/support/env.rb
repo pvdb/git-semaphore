@@ -4,5 +4,4 @@ require 'git-semaphore'
 
 require 'aruba/cucumber'
 require 'methadone/cucumber'
-require 'cucumber-pride'
 require "json_spec/cucumber"
