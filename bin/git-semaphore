@@ -1,15 +1,8 @@
 #!/usr/bin/env ruby
 
-$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+$LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
 
-begin
-  require 'git-semaphore'
-  require 'bundler'
-  Bundler.setup
-rescue LoadError
-  require 'rubygems'
-  require 'git-semaphore'
-end
+require 'git-semaphore'
 
 options = Trollop::options do
 

@@ -1,5 +1,3 @@
-require 'rubygems'
-
 require 'grit'
 require 'trollop'
 
