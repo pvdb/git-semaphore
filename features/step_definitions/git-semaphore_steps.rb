@@ -81,7 +81,7 @@ Then /^the output should include the app name$/ do
 end
 
 Then /^the output should include a copyright notice$/ do
-  step %(the output should match /Copyright \\(c\\) [\\d]{4} [[\\w]+]+/)
+  step %(the output should match /Copyright \\(c\\) [\\d]{4}-[\\d]{4} [[\\w]+]+/)
 end
 
 #
