@@ -1,10 +1,10 @@
 # Git::Semaphore
 
-[![Build Status](https://semaphoreapp.com/api/v1/projects/03b2dffc7112138851166c86adb456484426a712/7753/badge.png)](https://semaphoreapp.com/pvdb/git-semaphore)
+[![Build Status](https://semaphoreci.com/api/v1/projects/03b2dffc7112138851166c86adb456484426a712/7753/badge.png)](https://semaphoreci.com/pvdb/git-semaphore)
 
 [![Travis CI](https://travis-ci.org/pvdb/git-semaphore.svg?branch=v0.0.6)](https://travis-ci.org/pvdb/git-semaphore)
 
-git integration with [semaphoreapp.com][semaphoreapp.com]
+git integration with [semaphoreci.com][] (via their API)
 
 ## Installation
 
@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Authentication
 
-Log into [semaphoreapp.com][semaphoreapp.com] and find your API `authentication token` in the `API` tab of one of your projects' `settings` page.
+Log into [semaphoreci.com][] and find your API `authentication token` in the `API` tab of one of your projects' `settings` page.
 
 Next, choose one of the following mechanisms to make your API `authentication token` available to `Git::Semaphore`...
 
@@ -80,5 +80,5 @@ After installing the quite brilliant [jazor gem][jazor] (`gem install jazor`), t
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-[semaphoreapp.com]: https://semaphoreapp.com/
+[semaphoreci.com]: https://semaphoreci.com/
 [jazor]: https://github.com/mconigliaro/jazor

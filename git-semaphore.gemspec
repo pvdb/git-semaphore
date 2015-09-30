@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Git::Semaphore::VERSION
   spec.authors       = ["Peter Vandenberk"]
   spec.email         = ["pvandenberk@mac.com"]
-  spec.summary       = ["git integration with https://semaphoreapp.com"]
-  spec.description   = ["git integration with https://semaphoreapp.com"]
+  spec.summary       = ["git integration with https://semaphoreci.com"]
+  spec.description   = ["git integration with https://semaphoreci.com"]
   spec.homepage      = "https://github.com/pvdb/git-semaphore"
   spec.license       = "MIT"
 
