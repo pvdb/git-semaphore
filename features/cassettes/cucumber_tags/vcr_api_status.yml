@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://semaphoreapp.com/api/v1/projects/649e584dc507ca4b73e1374d3125ef0b567a949c/89/status?auth_token=Yds3w6o26FLfJTnVK2y9
+    uri: https://semaphoreci.com/api/v1/projects/649e584dc507ca4b73e1374d3125ef0b567a949c/89/status?auth_token=Yds3w6o26FLfJTnVK2y9
     body:
       encoding: US-ASCII
       string: ''
@@ -53,11 +53,11 @@ http_interactions:
       encoding: US-ASCII
       string: ! '{
    "branch_name": "gem_updates",
-   "branch_url": "https://semaphoreapp.com/projects/44/branches/50",
-   "branch_status_url": "http://semaphoreapp.com/api/v1/projects/649e584dc507ca4b73e1374d3125ef0b567a949c/89/status?auth_token=Yds3w6o26FLfJTnVK2y9",
-   "branch_history_url": "http://semaphoreapp.com/api/v1/projects/649e584dc507ca4b73e1374d3125ef0b567a949c/89?auth_token=Yds3w6o26FLfJTnVK2y9",
+   "branch_url": "https://semaphoreci.com/projects/44/branches/50",
+   "branch_status_url": "http://semaphoreci.com/api/v1/projects/649e584dc507ca4b73e1374d3125ef0b567a949c/89/status?auth_token=Yds3w6o26FLfJTnVK2y9",
+   "branch_history_url": "http://semaphoreci.com/api/v1/projects/649e584dc507ca4b73e1374d3125ef0b567a949c/89?auth_token=Yds3w6o26FLfJTnVK2y9",
    "project_name": "base-app",
-   "build_url": "https://semaphoreapp.com/projects/44/branches/50/builds/15",
+   "build_url": "https://semaphoreci.com/projects/44/branches/50/builds/15",
    "build_number": 15,
    "result": "passed",
    "started_at": "2012-07-09T15:23:53Z",

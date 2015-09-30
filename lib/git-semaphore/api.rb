@@ -6,9 +6,9 @@ module Git
   module Semaphore
     class Api
 
-      # http://docs.semaphoreapp.com/api
+      # https://semaphoreci.com/docs/
 
-      SEMAPHORE_API_HOST = 'semaphoreapp.com'
+      SEMAPHORE_API_HOST = 'semaphoreci.com'
       SEMAPHORE_API_URI = '/api/v1'
 
       def self.projects_uri auth_token

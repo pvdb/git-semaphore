@@ -1,4 +1,4 @@
-Given /^I am an authenticated user on semaphoreapp\.com$/ do
+Given /^I am an authenticated user on semaphoreci\.com$/ do
   @auth_token = SEMAPHORE_TEST_TOKEN
   @project = '649e584dc507ca4b73e1374d3125ef0b567a949c'
   @branch = '89'
