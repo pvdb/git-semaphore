@@ -1,0 +1,79 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
+
+require 'git/semaphore'
+
+if __FILE__ == $0
+
+  require 'slop'
+
+  options = Slop.parse(help: true) do
+
+    on :version,  'Print the version' do
+      puts Git::Semaphore::COPYRIGHT
+      exit(0)
+    end
+
+    banner Git::Semaphore::BANNER
+
+    on :settings, 'Display the relevants settings'
+    on :browse,   'Open the project on https://semaphoreci.com/'
+
+    on :clean,    'Deletes the cached API query results'
+
+    on :projects, 'List all projects and their current status'
+    on :branches, 'List all branches for the current project'
+    on :status,   'List the build status for the current branch'
+    on :history,  'List the build history for the current branch'
+    on :rebuild,  'Rebuild last revision for the current branch'
+
+  end
+
+  app = Git::Semaphore::App.new(Git::Semaphore.auth_token, Git::Semaphore.git_repo, ENV)
+
+  if options.settings?
+    puts app.to_json
+    exit 0
+  end
+
+  if options.browse?
+    `open #{app.branch_url}`
+    exit 0
+  end
+
+  if options.clean?
+    Git::Semaphore.empty_cache_dir
+    exit 0
+  end
+
+  if options.projects?
+    puts app.projects.to_json
+    exit 0
+  end
+
+  if options.branches?
+    puts app.branches.to_json
+    exit 0
+  end
+
+  if options.status?
+    puts app.status.to_json
+    exit 0
+  end
+
+  if options.history?
+    puts app.history.to_json
+    exit 0
+  end
+
+  if options.rebuild?
+    puts app.rebuild
+    exit 0
+  end
+
+  fail "Coming soon!"
+
+end
+
+# That's all Folks!
