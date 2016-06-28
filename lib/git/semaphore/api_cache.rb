@@ -33,6 +33,12 @@ module Git
           end
         end
 
+        def self.log project_hash_id, branch_id, build_number, auth_token
+          @log ||= Git::Semaphore.from_json_cache(log_cache(project_hash_id, branch_id, build_number)) do
+            API.log project_hash_id, branch_id, build_number, auth_token
+          end
+        end
+
         # private helper functions
 
         def self.projects_cache
@@ -64,6 +70,12 @@ module Git
         end
 
         private_class_method :information_cache
+
+        def self.log_cache project_hash_id, branch_id, build_number
+          File.join(Git::Semaphore.cache_dir_for(project_hash_id), "#{branch_id}_#{build_number}_log.json")
+        end
+
+        private_class_method :log_cache
 
       end
     end

@@ -67,6 +67,10 @@ class Git::Semaphore::App
     Git::Semaphore::API::Cache.information(project_hash_id, branch_id, build_number, @auth_token,)
   end
 
+  def log
+    Git::Semaphore::API::Cache.log(project_hash_id, branch_id, build_number, @auth_token,)
+  end
+
   def rebuild
     Git::Semaphore::API.rebuild(project_hash_id, branch_id, @auth_token)
   end
