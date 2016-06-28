@@ -3,6 +3,7 @@ class Git::Semaphore::App
   attr_writer :project_name
   attr_writer :branch_name
   attr_writer :commit_sha
+  attr_writer :build_number
 
   attr_reader :branch_url
 
@@ -13,6 +14,7 @@ class Git::Semaphore::App
     self.project_name = config['SEMAPHORE_PROJECT_NAME']
     self.branch_name  = config['SEMAPHORE_BRANCH_NAME']
     self.commit_sha   = config['SEMAPHORE_COMMIT_SHA']
+    self.build_number = config['SEMAPHORE_BUILD_NUMBER']
   end
 
   def to_json
@@ -21,6 +23,7 @@ class Git::Semaphore::App
       semaphore_project_name: self.project_name,
       semaphore_branch_name:  self.branch_name,
       semaphore_commit_sha:   self.commit_sha,
+      semaphore_build_number: self.build_number,
     }.to_json
   end
 
@@ -39,6 +42,11 @@ class Git::Semaphore::App
     @git_repo.head.commit.id if @git_repo
   end
 
+  def build_number
+    return @build_number unless @build_number.nil?
+    history['builds'].first['build_number'].to_s
+  end
+
   def projects
     Git::Semaphore::API::Cache.projects(@auth_token)
   end
@@ -53,6 +61,10 @@ class Git::Semaphore::App
 
   def history
     Git::Semaphore::API::Cache.history(project_hash_id, branch_id, @auth_token)
+  end
+
+  def information
+    Git::Semaphore::API::Cache.information(project_hash_id, branch_id, build_number, @auth_token,)
   end
 
   def rebuild
@@ -104,12 +116,8 @@ class Git::Semaphore::App
     branch_id_for(branch_name)
   end
 
-  def build_statuses
-    history['builds']
-  end
-
   def build_status_for commit_sha
-    build_statuses.find { |build_status|
+    history['builds'].find { |build_status|
       build_status['commit']['id'] == commit_sha
     }
   end

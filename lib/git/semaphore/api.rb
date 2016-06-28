@@ -20,6 +20,10 @@ module Git
         end
       end
 
+      def self.information project_hash_id, branch_id, build_number, auth_token
+        get_json information_uri(project_hash_id, branch_id, build_number, auth_token)
+      end
+
       def self.rebuild project_hash_id, branch_id, auth_token
         get_json last_revision_uri(project_hash_id, branch_id, auth_token), :post
       end
@@ -57,6 +61,14 @@ module Git
       end
 
       private_class_method :history_uri
+
+      def self.information_uri project_hash_id, branch_id, build_number, auth_token
+        # https://semaphoreci.com/docs/branches-and-builds-api.html#build_information
+        # GET /api/v1/projects/:hash_id/:id/builds/:number
+        request_uri(auth_token, :path => File.join('projects', project_hash_id, branch_id, 'builds', build_number))
+      end
+
+      private_class_method :information_uri
 
       def self.last_revision_uri project_hash_id, branch_id, auth_token
         # https://semaphoreci.com/docs/branches-and-builds-api.html#rebuild

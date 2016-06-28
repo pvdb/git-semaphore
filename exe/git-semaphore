@@ -22,11 +22,12 @@ if __FILE__ == $0
 
     on :clean,    'Deletes the cached API query results'
 
-    on :projects, 'List all projects and their current status'
-    on :branches, 'List all branches for the current project'
-    on :status,   'List the build status for the current branch'
-    on :history,  'List the build history for the current branch'
-    on :rebuild,  'Rebuild last revision for the current branch'
+    on :projects,    'List all projects and their current status'
+    on :branches,    'List all branches for the current project'
+    on :status,      'List the build status for the current branch'
+    on :history,     'List the build history for the current branch'
+    on :information, 'List the commit information for the last build'
+    on :rebuild,     'Rebuild last revision for the current branch'
 
   end
 
@@ -64,6 +65,11 @@ if __FILE__ == $0
 
   if options.history?
     puts app.history.to_json
+    exit 0
+  end
+
+  if options.information?
+    puts app.information.to_json
     exit 0
   end
 
