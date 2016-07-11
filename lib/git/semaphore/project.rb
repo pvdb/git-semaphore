@@ -7,8 +7,8 @@ class Git::Semaphore::Project
 
   attr_reader :branch_url
 
-  def initialize auth_token, git_repo, config = ENV
-    @auth_token = auth_token
+  def initialize git_repo, config = ENV
+    @auth_token = Git::Semaphore.auth_token
     @git_repo   = git_repo
 
     self.project_name = config['SEMAPHORE_PROJECT_NAME']
