@@ -1,6 +1,10 @@
 class Git::Semaphore::Project
 
-  attr_writer :project_name
+  attr_writer :owner
+  attr_writer :name
+
+  attr_reader :full_name
+
   attr_writer :branch_name
   attr_writer :commit_sha
   attr_writer :build_number
@@ -11,25 +15,39 @@ class Git::Semaphore::Project
     @auth_token = Git::Semaphore.auth_token
     @git_repo   = git_repo
 
-    self.project_name = config['SEMAPHORE_PROJECT_NAME']
-    self.branch_name  = config['SEMAPHORE_BRANCH_NAME']
-    self.commit_sha   = config['SEMAPHORE_COMMIT_SHA']
-    self.build_number = config['SEMAPHORE_BUILD_NUMBER']
+    if full_name            = config['SEMAPHORE_FULL_NAME']
+      self.owner, self.name = full_name.split('/')
+    end
+
+    self.branch_name        = config['SEMAPHORE_BRANCH_NAME']
+    self.commit_sha         = config['SEMAPHORE_COMMIT_SHA']
+    self.build_number       = config['SEMAPHORE_BUILD_NUMBER']
   end
 
   def to_json
     {
-      semaphore_auth_token:   @auth_token,
-      semaphore_project_name: self.project_name,
-      semaphore_branch_name:  self.branch_name,
-      semaphore_commit_sha:   self.commit_sha,
-      semaphore_build_number: self.build_number,
+      semaphore_auth_token:    @auth_token,
+      semaphore_project_owner: self.owner,
+      semaphore_project_name:  self.name,
+      semaphore_full_name:     self.full_name,
+      semaphore_branch_name:   self.branch_name,
+      semaphore_commit_sha:    self.commit_sha,
+      semaphore_build_number:  self.build_number,
     }.to_json
   end
 
-  def project_name
-    return @project_name unless @project_name.nil?
-    File.basename @git_repo.git.work_tree if @git_repo
+  def owner
+    return @owner unless @owner.nil?
+    File.basename(File.dirname(@git_repo.git.work_tree)) if @git_repo
+  end
+
+  def name
+    return @name unless @name.nil?
+    File.basename(@git_repo.git.work_tree) if @git_repo
+  end
+
+  def full_name
+    [owner, name].join('/')
   end
 
   def branch_name
@@ -84,22 +102,22 @@ class Git::Semaphore::Project
 
   private
 
-  def project_hash_for project_name
+  def project_hash_for owner, name
     projects.find { |project_hash|
-      project_hash['name'] == project_name
+      project_hash['owner'] == owner && project_hash['name'] == name
     }
   end
 
   def project_hash
-    project_hash_for(project_name)
+    project_hash_for(owner, name)
   end
 
-  def project_hash_id_for project_name
-    project_hash_for(project_name)['hash_id']
+  def project_hash_id_for owner, name
+    project_hash_for(owner, name)['hash_id']
   end
 
   def project_hash_id
-    project_hash_id_for(project_name)
+    project_hash_id_for(owner, name)
   end
 
   def branch_hash_for branch_name
