@@ -32,15 +32,15 @@ if __FILE__ == $0
 
   end
 
-  app = Git::Semaphore::App.new(Git::Semaphore.auth_token, Git::Semaphore.git_repo, ENV)
+  project = Git::Semaphore::Project.new(Git::Semaphore.auth_token, Git::Semaphore.git_repo, ENV)
 
   if options.settings?
-    puts app.to_json
+    puts project.to_json
     exit 0
   end
 
   if options.browse?
-    `open #{app.branch_url}`
+    `open #{project.branch_url}`
     exit 0
   end
 
@@ -50,37 +50,37 @@ if __FILE__ == $0
   end
 
   if options.projects?
-    puts app.projects.to_json
+    puts project.projects.to_json
     exit 0
   end
 
   if options.branches?
-    puts app.branches.to_json
+    puts project.branches.to_json
     exit 0
   end
 
   if options.status?
-    puts app.status.to_json
+    puts project.status.to_json
     exit 0
   end
 
   if options.history?
-    puts app.history.to_json
+    puts project.history.to_json
     exit 0
   end
 
   if options.information?
-    puts app.information.to_json
+    puts project.information.to_json
     exit 0
   end
 
   if options.log?
-    puts app.log.to_json
+    puts project.log.to_json
     exit 0
   end
 
   if options.rebuild?
-    puts app.rebuild
+    puts project.rebuild
     exit 0
   end
 

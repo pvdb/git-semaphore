@@ -1,4 +1,4 @@
-class Git::Semaphore::App
+class Git::Semaphore::Project
 
   attr_writer :project_name
   attr_writer :branch_name

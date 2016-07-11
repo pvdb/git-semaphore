@@ -74,4 +74,4 @@ require 'git/semaphore/api'
 require 'git/semaphore/api_cache'
 require 'git/semaphore/api_enrich'
 
-require 'git/semaphore/app'
+require 'git/semaphore/project'
