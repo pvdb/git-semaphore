@@ -3,19 +3,15 @@ class Git::Semaphore::Project
   attr_writer :owner
   attr_writer :name
 
-  attr_reader :full_name
-
   attr_writer :branch_name
   attr_writer :commit_sha
   attr_writer :build_number
-
-  attr_reader :branch_url
 
   def initialize git_repo, config = ENV
     @auth_token = Git::Semaphore.auth_token
     @git_repo   = git_repo
 
-    if full_name            = config['SEMAPHORE_FULL_NAME']
+    if full_name            = config['SEMAPHORE_PROJECT_NAME']
       self.owner, self.name = full_name.split('/')
     end
 
@@ -24,16 +20,29 @@ class Git::Semaphore::Project
     self.build_number       = config['SEMAPHORE_BUILD_NUMBER']
   end
 
-  def to_json
+  def settings
     {
-      semaphore_auth_token:    @auth_token,
-      semaphore_project_owner: self.owner,
-      semaphore_project_name:  self.name,
-      semaphore_full_name:     self.full_name,
-      semaphore_branch_name:   self.branch_name,
-      semaphore_commit_sha:    self.commit_sha,
-      semaphore_build_number:  self.build_number,
-    }.to_json
+      auth_token:   @auth_token,
+      project_name: full_name,
+      branch_name:  branch_name,
+      commit_sha:   commit_sha,
+      build_number: build_number,
+    }
+  end
+
+  def internals
+    settings.merge({
+      project: {
+        owner:      owner,
+        name:       name,
+        full_name:  full_name,
+        hash_id:    project_hash_id,
+      },
+      branch: {
+        name:       branch_name,
+        id:         branch_id,
+      },
+    })
   end
 
   def owner

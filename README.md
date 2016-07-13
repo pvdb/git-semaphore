@@ -108,7 +108,7 @@ When used inside a git repository, `git semaphore` uses [convention over configu
 
 | setting      | inside git repo    | pseudo-code                     | override                        |
 |--------------|--------------------|---------------------------------|---------------------------------|
-| owner & name | based on `${PWD}`  | `Dir.pwd.split('/').last(2)`    | `ENV['SEMAPHORE_FULL_NAME']`    |
+| owner & name | based on `${PWD}`  | `Dir.pwd.split('/').last(2)`    | `ENV['SEMAPHORE_PROJECT_NAME']` |
 | branch name  | current git branch | `git symbolic-ref --short HEAD` | `ENV['SEMAPHORE_BRANCH_NAME']`  |
 | commit SHA   | current git head   | `git rev-parse HEAD`            | `ENV['SEMAPHORE_COMMIT_SHA']`   |
 | build number | last branch build  | `N/A`                           | `ENV['SEMAPHORE_BUILD_NUMBER']` |
@@ -119,14 +119,15 @@ The `git semaphore --settings` command can be used to print out the values for t
 
     $ git semaphore --settings | jq '.'
     {
-      "semaphore_auth_token": "Yds3w6o26FLfJTnVK2y9",
-      "semaphore_project_owner": "pvdb",
-      "semaphore_project_name": "git-semaphore",
-      "semaphore_full_name": "pvdb/git-semaphore",
-      "semaphore_branch_name": "master",
-      "semaphore_commit_sha": "4b59c3e41ca4592dfb01f77f2163154f3d3532fe"
+      "auth_token": "Yds3w6o26FLfJTnVK2y9",
+      "project_name": "pvdb/git-semaphore",
+      "branch_name": "master",
+      "commit_sha": "4b59c3e41ca4592dfb01f77f2163154f3d3532fe",
+      "build_number": "35"
     }
     $ _
+
+The `git semaphore --internals` command adds the internal settings to the settings hash.
 
 ## Available commands
 
