@@ -35,6 +35,10 @@ class Git::Semaphore::Project
         name:       branch_name,
         id:         branch_id,
       },
+      build: {
+        number:     build_number,
+        result:     build_result,
+      },
     })
   end
 
@@ -140,14 +144,18 @@ class Git::Semaphore::Project
     branch_id_for(branch_name)
   end
 
-  def build_status_for commit_sha
-    history['builds'].find { |build_status|
-      build_status['commit']['id'] == commit_sha
+  def build_for build_number # commit_sha
+    history['builds'].find { |build|
+      # FIXME the commit_sha possibly doesn't exist
+      # on GitHub - and hence Semaphore - just yet!
+      # build['commit']['id'] == commit_sha
+      build['build_number'].to_s == build_number
     }
   end
 
-  def build_status
-    build_status_for(commit_sha)
+  def build_result
+    # build_for(commit_sha)['result']
+    build_for(build_number)['result']
   end
 
 end
