@@ -1,23 +1,16 @@
 class Git::Semaphore::Project
 
-  attr_writer :owner
-  attr_writer :name
-
-  attr_writer :branch_name
-  attr_writer :commit_sha
-  attr_writer :build_number
-
   def initialize git_repo, config = ENV
     @auth_token = Git::Semaphore.auth_token
     @git_repo   = git_repo
 
-    if full_name            = config['SEMAPHORE_PROJECT_NAME']
-      self.owner, self.name = full_name.split('/')
+    if full_name = config['SEMAPHORE_PROJECT_NAME']
+      @owner, @name = full_name.split('/')
     end
 
-    self.branch_name        = config['SEMAPHORE_BRANCH_NAME']
-    self.commit_sha         = config['SEMAPHORE_COMMIT_SHA']
-    self.build_number       = config['SEMAPHORE_BUILD_NUMBER']
+    @branch_name  = config['SEMAPHORE_BRANCH_NAME']
+    @commit_sha   = config['SEMAPHORE_COMMIT_SHA']
+    @build_number = config['SEMAPHORE_BUILD_NUMBER']
   end
 
   def settings
