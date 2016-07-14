@@ -4,7 +4,7 @@ require 'openssl'
 require 'net/http'
 require 'fileutils'
 
-require 'grit'
+require 'rugged'
 
 module Git
   module Semaphore
@@ -44,9 +44,9 @@ module Git
     end
 
     def self.git_repo
-      @git_repo ||= begin
-        Grit::Repo.new(Dir.pwd)
-      rescue Grit::InvalidGitRepositoryError
+      begin
+        Rugged::Repository.new(Dir.pwd)
+      rescue Rugged::RepositoryError
         nil
       end
     end

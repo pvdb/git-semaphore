@@ -44,12 +44,12 @@ class Git::Semaphore::Project
 
   def owner
     return @owner unless @owner.nil?
-    File.basename(File.dirname(@git_repo.git.work_tree)) if @git_repo
+    File.basename(File.dirname(@git_repo.workdir)) if @git_repo
   end
 
   def name
     return @name unless @name.nil?
-    File.basename(@git_repo.git.work_tree) if @git_repo
+    File.basename(@git_repo.workdir) if @git_repo
   end
 
   def full_name
@@ -58,12 +58,12 @@ class Git::Semaphore::Project
 
   def branch_name
     return @branch_name unless @branch_name.nil?
-    @git_repo.head.name if @git_repo
+    @git_repo.head.name.split('/').last if @git_repo
   end
 
   def commit_sha
     return @commit_sha unless @commit_sha.nil?
-    @git_repo.head.commit.id if @git_repo
+    @git_repo.head.target.oid if @git_repo
   end
 
   def build_number
