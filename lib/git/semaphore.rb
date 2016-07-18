@@ -1,10 +1,17 @@
 require 'uri'
+require 'date'
 require 'json'
 require 'openssl'
 require 'net/http'
 require 'fileutils'
 
 require 'rugged'
+
+class Rugged::Repository
+  def owner()     File.basename(File.dirname(workdir)) ; end
+  def name()      File.basename(workdir) ;               end
+  def full_name() "#{owner}/#{name}" ;                   end
+end
 
 module Git
   module Semaphore

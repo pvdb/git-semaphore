@@ -34,7 +34,11 @@ if __FILE__ == $0
 
   end
 
-  project = Git::Semaphore::Project.new(Git::Semaphore.git_repo, ENV)
+  project = if (git_repo = Git::Semaphore.git_repo)
+    Git::Semaphore::Project.from_repo(git_repo)
+  else
+    Git::Semaphore::Project.from_config(ENV)
+  end
 
   if options.settings?
     puts project.settings.to_json
