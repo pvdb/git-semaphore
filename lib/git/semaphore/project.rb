@@ -103,8 +103,12 @@ class Git::Semaphore::Project
   # API related queries
   #
 
-  def projects
-    Git::Semaphore::API::Cache.projects(@auth_token)
+  def self.all
+    Git::Semaphore::API::Cache.projects(Git::Semaphore.auth_token)
+  end
+
+  class << self
+    alias_method :projects, :all
   end
 
   def branches
@@ -134,7 +138,7 @@ class Git::Semaphore::Project
   private
 
   def project_hash_for owner, name
-    projects.find { |project_hash|
+    self.class.projects.find { |project_hash|
       project_hash['owner'] == owner && project_hash['name'] == name
     }
   end
