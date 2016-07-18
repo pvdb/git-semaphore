@@ -50,17 +50,24 @@ class Git::Semaphore::Project
         name:       @name,
         full_name:  @full_name,
         hash_id:    project_hash_id,
+        url:        project_url,
       },
       branch: {
         name:       @branch_name,
         id:         branch_id,
+        url:        branch_url,
       },
       build: {
         number:     build_number,
         result:     build_result,
+        url:        build_url,
       },
     })
   end
+
+  #
+  # build-related queries: default to latest one...
+  #
 
   def build_number
     @build_number ||= history['builds'].first['build_number'].to_s
@@ -69,6 +76,32 @@ class Git::Semaphore::Project
   def build_result
     @build_result ||= history['builds'].first['result']
   end
+
+  #
+  # direct links to semaphore.ci
+  #
+
+  def project_url
+    project_hash['html_url']
+  end
+
+  def branch_url
+    branch_hash = project_hash['branches'].find { |hash|
+      hash['branch_name'] == @branch_name
+    }
+    branch_hash['branch_url']
+  end
+
+  def build_url
+    build_hash = history['builds'].find { |hash|
+      hash['build_number'].to_s == @build_number
+    }
+    build_hash['build_url']
+  end
+
+  #
+  # API related queries
+  #
 
   def projects
     Git::Semaphore::API::Cache.projects(@auth_token)
@@ -96,13 +129,6 @@ class Git::Semaphore::Project
 
   def rebuild
     Git::Semaphore::API.rebuild(project_hash_id, branch_id, @auth_token)
-  end
-
-  def branch_url
-    branch_hash = project_hash['branches'].find { |hash|
-      hash['branch_name'] == @branch_name
-    }
-    branch_hash['branch_url']
   end
 
   private
@@ -141,15 +167,6 @@ class Git::Semaphore::Project
 
   def branch_id
     branch_id_for(@branch_name)
-  end
-
-  def build_for build_number # commit_sha
-    history['builds'].find { |build|
-      # FIXME the commit_sha possibly doesn't exist
-      # on GitHub - and hence Semaphore - just yet!
-      # build['commit']['id'] == commit_sha
-      build['build_number'].to_s == build_number
-    }
   end
 
 end
