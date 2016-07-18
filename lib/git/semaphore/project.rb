@@ -28,7 +28,7 @@ class Git::Semaphore::Project
     @auth_token   = Git::Semaphore.auth_token
     @full_name    = full_name
     @owner, @name = full_name.split('/')
-    @branch_name  = branch_name
+    @branch_name  = branch_name || 'master'
     @commit_sha   = options[:commit_sha]
     @build_number = options[:build_number]
   end
