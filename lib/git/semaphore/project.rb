@@ -15,16 +15,16 @@ class Git::Semaphore::Project
 
   def self.from_config config
     self.new(
-      full_name:      config['SEMAPHORE_PROJECT_NAME'],
-      branch_name:    config['SEMAPHORE_BRANCH_NAME'],
-      options: {
+      config['SEMAPHORE_PROJECT_NAME'],
+      config['SEMAPHORE_BRANCH_NAME'],
+      {
         commit_sha:   config['SEMAPHORE_COMMIT_SHA'],
         build_number: config['SEMAPHORE_BUILD_NUMBER'],
       }
     )
   end
 
-  def initialize full_name:, branch_name:, options:
+  def initialize full_name, branch_name = nil, options = {}
     @auth_token   = Git::Semaphore.auth_token
     @full_name    = full_name
     @owner, @name = full_name.split('/')
