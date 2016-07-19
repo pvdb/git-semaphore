@@ -115,7 +115,39 @@ When used inside a git repository, `git semaphore` uses [convention over configu
 
 However, each of these defaults can be overridden by setting the corresponding environment variable, as documented in the above table.  The same `ENV`-based override mechanism can be leveraged to use `git semaphore` outside of a git repository.
 
-The `git semaphore --settings` command can be used to print out the values for these various settings:
+## Using the "full name" convention
+
+On your local filesystem, git repositories need to use paths that follow the "full name" convention in use on `github.com` and `semaphoreci.com`, ie. the last two path components for the `pvdb/git-semaphore` repository should be `pvdb` and `git-semaphore` respectively, as illustrated on this table:
+
+|           | full name            | owner  | name            | URL / path                                   |
+|-----------|----------------------|--------|-----------------|----------------------------------------------|
+|           | `pvdb/git-semaphore` | `pvdb` | `git-semaphore` |                                              |
+| GitHub    |                      |        |                 | `https://github.com/pvdb/git-semaphore`      |
+| Semaphore |                      |        |                 | `https://semaphoreci.com/pvdb/git-semaphore` |
+| filesytem |                      |        |                 | `${HOME}/Projects/pvdb/git-semaphore`        |
+
+Put differently: if you typically create your git repositories in `${HOME}/Projects`, and you have the following three git repos...
+
+    pvdb/git-meta
+    pvdb/git-semaphore
+    pvdb/git-switcher
+
+... then the directory tree should be as follows:
+
+    ${HOME}/Projects
+    └── pvdb
+        ├── git-meta
+        │   └── .git
+        ├── git-semaphore
+        │   └── .git
+        └── git-switcher
+            └── .git
+
+So first you have a directory corresponding to the repository owner (`pvdb`) and one level down you have a directory corresponding to the repository name (`git-meta`, `git-semaphore` and `git-switcher` respectively).
+
+## A look behind the scences
+
+The `git semaphore --settings` command can be used to print out the values for the most relevant settings:
 
     $ git semaphore --settings | jq '.'
     {
@@ -127,11 +159,11 @@ The `git semaphore --settings` command can be used to print out the values for t
     }
     $ _
 
-The `git semaphore --internals` command adds the internal settings to the settings hash.
+The `git semaphore --internals` command adds all internal settings to the above settings hash.
 
 ## Available commands
 
-> ⚠️ all of the below examples need to be run from within a git repository ⚠️
+> ⚠️ all of the below examples need to be run from within a git repository that follows the "full name" convention documented above ⚠️
 
 ### list the Semaphore settings
 
