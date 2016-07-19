@@ -4,7 +4,7 @@
 
 [![Travis CI](https://travis-ci.org/pvdb/git-semaphore.svg?branch=v0.0.6)](https://travis-ci.org/pvdb/git-semaphore)
 
-Integrate git repositories with their corresponding project on [semaphoreci.com][] _(via the semaphore API)_
+Integrate git repositories with their corresponding project on [semaphoreci.com][] _(via the Semaphore API)_
 
 ## Features
 
@@ -191,6 +191,9 @@ After installing [the indispensable jq utility][jq] (`brew install jq`), the raw
 
     # pretty-print the git semaphore settings
     git semaphore --settings | jq '.'
+
+    # pretty-print the git semaphore internals
+    git semaphore --internals | jq '.'
 
     # list the full name of all Semaphore projects
     git semaphore --projects | jq -r '.[] | .full_name'
