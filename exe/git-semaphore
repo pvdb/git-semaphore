@@ -4,99 +4,96 @@ $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib
 
 require 'git/semaphore'
 
-if __FILE__ == $0
+require 'slop'
 
-  require 'slop'
+options = Slop.parse(help: true) do
 
-  options = Slop.parse(help: true) do
-
-    on :version,  'Print the version' do
-      puts Git::Semaphore::COPYRIGHT
-      exit(0)
-    end
-
-    banner Git::Semaphore::BANNER
-
-    on :settings,  'Display most relevant settings'
-    on :internals, 'Display all internal settings'
-
-    on :browse,   'Open the project on https://semaphoreci.com/'
-
-    on :clean,    'Deletes the cached API query results'
-
-    on :projects,    'List all projects and their current status'
-    on :branches,    'List all branches for the current project'
-    on :status,      'List the build status for the current branch'
-    on :history,     'List the build history for the current branch'
-    on :information, 'List the commit information for the last build'
-    on :log,         'List the build log for the last build'
-    on :rebuild,     'Rebuild last revision for the current branch'
-
+  on :version, 'Print the version' do
+    puts Git::Semaphore::COPYRIGHT
+    exit(0)
   end
 
-  if options.clean?
-    Git::Semaphore.empty_cache_dir
-    exit 0
-  end
+  banner Git::Semaphore::BANNER
 
-  if options.projects?
-    puts Git::Semaphore::Project.all.to_json
-    exit 0
-  end
+  on :settings, 'Display most relevant settings'
+  on :internals, 'Display all internal settings'
 
-  project = if (git_repo = Git::Semaphore.git_repo)
-    Git::Semaphore::Project.from_repo(git_repo)
-  else
-    Git::Semaphore::Project.from_config(ENV)
-  end
+  on :browse, 'Open the project on https://semaphoreci.com/'
 
-  if options.settings?
-    puts project.settings.to_json
-    exit 0
-  end
+  on :clean, 'Deletes the cached API query results'
 
-  if options.internals?
-    puts project.internals.to_json
-    exit 0
-  end
-
-  if options.browse?
-    `open #{project.branch_url}`
-    exit 0
-  end
-
-  if options.branches?
-    puts project.branches.to_json
-    exit 0
-  end
-
-  if options.status?
-    puts project.status.to_json
-    exit 0
-  end
-
-  if options.history?
-    puts project.history.to_json
-    exit 0
-  end
-
-  if options.information?
-    puts project.information.to_json
-    exit 0
-  end
-
-  if options.log?
-    puts project.log.to_json
-    exit 0
-  end
-
-  if options.rebuild?
-    puts project.rebuild
-    exit 0
-  end
-
-  fail "Coming soon!"
+  on :projects, 'List all projects and their current status'
+  on :branches, 'List all branches for the current project'
+  on :status, 'List the build status for the current branch'
+  on :history, 'List the build history for the current branch'
+  on :information, 'List the commit information for the last build'
+  on :log, 'List the build log for the last build'
+  on :rebuild, 'Rebuild last revision for the current branch'
 
 end
+
+if options.clean?
+  Git::Semaphore.empty_cache_dir
+  exit 0
+end
+
+if options.projects?
+  puts Git::Semaphore::Project.all.to_json
+  exit 0
+end
+
+project = if (git_repo = Git::Semaphore.git_repo)
+            Git::Semaphore::Project.from_repo(git_repo)
+          else
+            Git::Semaphore::Project.from_config(ENV)
+          end
+
+if options.settings?
+  puts project.settings.to_json
+  exit 0
+end
+
+if options.internals?
+  puts project.internals.to_json
+  exit 0
+end
+
+if options.browse?
+  `open #{project.branch_url}`
+  exit 0
+end
+
+if options.branches?
+  puts project.branches.to_json
+  exit 0
+end
+
+if options.status?
+  puts project.status.to_json
+  exit 0
+end
+
+if options.history?
+  puts project.history.to_json
+  exit 0
+end
+
+if options.information?
+  puts project.information.to_json
+  exit 0
+end
+
+if options.log?
+  puts project.log.to_json
+  exit 0
+end
+
+if options.rebuild?
+  puts project.rebuild
+  exit 0
+end
+
+fail "Coming soon!"
+
 
 # That's all Folks!
