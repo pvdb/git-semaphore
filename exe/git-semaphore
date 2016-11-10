@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 $LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
-
 require 'git/semaphore'
 
 require 'slop'
@@ -43,10 +42,10 @@ if options.projects?
 end
 
 project = if (git_repo = Git::Semaphore.git_repo)
-            Git::Semaphore::Project.from_repo(git_repo)
-          else
-            Git::Semaphore::Project.from_config(ENV)
-          end
+  Git::Semaphore::Project.from_repo(git_repo)
+else
+  Git::Semaphore::Project.from_config(ENV)
+end
 
 if options.settings?
   puts project.settings.to_json
@@ -94,6 +93,5 @@ if options.rebuild?
 end
 
 fail "Coming soon!"
-
 
 # That's all Folks!
