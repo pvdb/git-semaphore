@@ -1,19 +1,33 @@
-require "bundler/gem_tasks"
-require "rake/testtask"
+# rubocop:disable Style/SymbolArray
+# rubocop:disable Style/HashSyntax
 
-task :default => :test
+require 'bundler/gem_tasks'
+
+task :validate_gemspec do
+  Bundler.load_gemspec('git-semaphore.gemspec').validate
+end
+
+task :version => :validate_gemspec do
+  puts Git::Semaphore::VERSION
+end
+
+require 'rubocop/rake_task'
+
+RuboCop::RakeTask.new(:rubocop)
+
+require 'rake/testtask'
 
 Rake::TestTask.new(:test) do |t|
-  t.libs << "test"
-  t.libs << "lib"
+  t.libs << 'test'
+  t.libs << 'lib'
   t.test_files = FileList['test/**/*_test.rb']
 end
 
-task :gemspec do
-  @gemspec ||= eval(File.read(Dir["*.gemspec"].first))
-end
+task :default => [:rubocop, :test]
 
-desc "Validate the gemspec"
-task :validate => :gemspec do
-  @gemspec.validate
-end
+task :documentation
+
+Rake::Task['build'].enhance([:default, :documentation])
+
+# rubocop:enable Style/HashSyntax
+# rubocop:enable Style/SymbolArray

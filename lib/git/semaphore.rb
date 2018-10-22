@@ -7,10 +7,12 @@ require 'fileutils'
 
 require 'rugged'
 
-class Rugged::Repository
-  def owner()     File.basename(File.dirname(workdir)) ; end
-  def name()      File.basename(workdir) ;               end
-  def full_name() "#{owner}/#{name}" ;                   end
+module Rugged
+  class Repository
+    def owner()     File.basename(File.dirname(workdir)); end
+    def name()      File.basename(workdir);               end
+    def full_name() "#{owner}/#{name}";                   end
+  end
 end
 
 module Git
@@ -41,7 +43,7 @@ module Git
     end
 
     def self.from_json_cache path
-      if File.exists? path
+      if File.exist? path
         JSON.parse(File.read(path))
       else
         yield.tap do |content|
@@ -51,11 +53,9 @@ module Git
     end
 
     def self.git_repo
-      begin
-        Rugged::Repository.new(Dir.pwd)
-      rescue Rugged::RepositoryError
-        nil
-      end
+      Rugged::Repository.new(Dir.pwd)
+    rescue Rugged::RepositoryError
+      nil
     end
 
     def self.env_auth_token
@@ -75,7 +75,6 @@ end
 
 require 'git/semaphore/version'
 require 'git/semaphore/banner'
-require 'git/semaphore/copyright'
 
 require 'git/semaphore/api'
 require 'git/semaphore/api_cache'

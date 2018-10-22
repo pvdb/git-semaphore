@@ -4,7 +4,10 @@ IFS=$'\n\t'
 set -vx
 
 rbenv install -s
-gem install bundler
+gem install --conservative bundler
 bundle install
+
+set +vxeu
+echo
 
 # That's all Folks!

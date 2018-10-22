@@ -18,8 +18,8 @@ module Git
           API.history(project_hash_id, branch_id, auth_token).tap do |results|
             results['builds'].each do |build|
               # build['result'] = "passed", "failed", "stopped" or "pending"
-              next unless started_at  = build['started_at']
-              next unless finished_at = build['finished_at']
+              next unless (started_at  = build['started_at'])
+              next unless (finished_at = build['finished_at'])
               started_at  = DateTime.parse(started_at).to_time
               finished_at = DateTime.parse(finished_at).to_time
               build['date'] = {

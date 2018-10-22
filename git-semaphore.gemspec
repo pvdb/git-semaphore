@@ -1,31 +1,34 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'git/semaphore/version'
+require 'git/semaphore/gemspec'
 
 Gem::Specification.new do |spec|
-  spec.name          = "git-semaphore"
+  spec.name          = Git::Semaphore::NAME
   spec.version       = Git::Semaphore::VERSION
-  spec.authors       = ["Peter Vandenberk"]
-  spec.email         = ["pvandenberk@mac.com"]
+  spec.authors       = ['Peter Vandenberk']
+  spec.email         = ['pvandenberk@mac.com']
 
-  spec.summary       = %q{git integration with semaphoreci.com}
-  spec.description   = %q{command-line integration with semaphoreci.com for git repositories}
-  spec.homepage      = "https://github.com/pvdb/git-semaphore"
-  spec.license       = "MIT"
+  spec.summary       = 'git integration with semaphoreci.com'
+  spec.description   = 'command-line integration with semaphoreci.com for git repositories'
+  spec.homepage      = 'https://github.com/pvdb/git-semaphore'
+  spec.license       = 'MIT'
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.bindir        = "exe"
+  spec.files         = begin
+                         `git ls-files -z`
+                           .split("\x0")
+                           .reject { |f| f.match(%r{^(test|spec|features)/}) }
+                       end
+  spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
+  spec.require_paths = ['lib']
 
-  spec.add_dependency "slop", "~> 3.0"
-  spec.add_dependency "rugged" , "~> 0.24"
+  spec.post_install_message = Git::Semaphore::PIM
 
-  spec.add_development_dependency "bundler", "~> 1.12"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "minitest", "~> 5.0"
+  spec.add_dependency 'rugged', '~> 0.24'
+  spec.add_dependency 'slop', '~> 3.0'
 
-  spec.add_development_dependency "pry"
-  spec.add_development_dependency "pry-rescue"
+  spec.add_development_dependency 'bundler'
+  spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'rake'
 end
