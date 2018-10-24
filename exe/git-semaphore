@@ -6,29 +6,40 @@ require 'git/semaphore'
 
 require 'slop'
 
-options = Slop.parse(help: true) do
+options = Slop.parse(help: true) do |o|
 
-  on :version, 'Print the version' do
+  o.banner = <<~"BANNER"
+    Usage: git-semaphore [options]
+
+      v#{Git::Semaphore::VERSION}
+
+    Options:
+  BANNER
+
+  o.on '--version', 'Print the version' do
     puts Git::Semaphore::LONG_VERSION
     exit(0)
   end
 
-  banner Git::Semaphore::BANNER
+  o.on '--help', 'Print help message' do
+    puts o
+    exit(0)
+  end
 
-  on :settings, 'Display most relevant settings'
-  on :internals, 'Display all internal settings'
+  o.on '--settings', 'Display most relevant settings'
+  o.on '--internals', 'Display all internal settings'
 
-  on :browse, 'Open the project on https://semaphoreci.com/'
+  o.on '--browse', 'Open the project on https://semaphoreci.com/'
 
-  on :clean, 'Deletes the cached API query results'
+  o.on '--clean', 'Deletes the cached API query results'
 
-  on :projects, 'List all projects and their current status'
-  on :branches, 'List all branches for the current project'
-  on :status, 'List the build status for the current branch'
-  on :history, 'List the build history for the current branch'
-  on :information, 'List the commit information for the last build'
-  on :log, 'List the build log for the last build'
-  on :rebuild, 'Rebuild last revision for the current branch'
+  o.on '--projects', 'List all projects and their current status'
+  o.on '--branches', 'List all branches for the current project'
+  o.on '--status', 'List the build status for the current branch'
+  o.on '--history', 'List the build history for the current branch'
+  o.on '--information', 'List the commit information for the last build'
+  o.on '--log', 'List the build log for the last build'
+  o.on '--rebuild', 'Rebuild last revision for the current branch'
 
 end
 

@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
   spec.post_install_message = Git::Semaphore::PIM
 
   spec.add_dependency 'rugged', '~> 0.24'
-  spec.add_dependency 'slop', '~> 3.0'
+  spec.add_dependency 'slop', '~> 4.6'
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'pry'

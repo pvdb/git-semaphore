@@ -74,7 +74,6 @@ module Git
 end
 
 require 'git/semaphore/version'
-require 'git/semaphore/banner'
 
 require 'git/semaphore/api'
 require 'git/semaphore/api_cache'
