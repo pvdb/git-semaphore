@@ -1,6 +1,7 @@
 require 'uri'
 require 'date'
 require 'json'
+require 'time'
 require 'openssl'
 require 'net/http'
 require 'fileutils'
@@ -26,23 +27,23 @@ module Git
 
     def self.cache_dir
       @cache_dir ||= begin
-        File.join(self.home_dir, '.git', 'semaphore').tap do |cache_dir|
+        File.join(home_dir, '.git', 'semaphore').tap do |cache_dir|
           FileUtils.mkdir_p(cache_dir)
         end
       end
     end
 
-    def self.cache_dir_for identifier
-      File.join(self.cache_dir, identifier).tap do |cache_dir|
+    def self.cache_dir_for(identifier)
+      File.join(cache_dir, identifier).tap do |cache_dir|
         FileUtils.mkdir_p(cache_dir)
       end
     end
 
     def self.empty_cache_dir
-      FileUtils.rm_r Dir.glob(File.join(self.cache_dir, '*'))
+      FileUtils.rm_r Dir.glob(File.join(cache_dir, '*'))
     end
 
-    def self.from_json_cache path
+    def self.from_json_cache(path)
       if File.exist? path
         JSON.parse(File.read(path))
       else
@@ -63,7 +64,7 @@ module Git
     end
 
     def self.git_auth_token
-      git_repo && git_repo.config['semaphore.authtoken']
+      git_repo&.config&.get('semaphore.authtoken')
     end
 
     def self.auth_token
