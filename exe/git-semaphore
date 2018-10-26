@@ -26,31 +26,21 @@ options = Slop.parse(help: true) do |o|
     exit(0)
   end
 
-  o.on '--settings', 'Display most relevant settings'
-  o.on '--internals', 'Display all internal settings'
+  o.on '--clean',       'Deletes the cached API query results'
+  o.on '--projects',    'List all projects and their current status'
 
-  o.on '--browse', 'Open the project on https://semaphoreci.com/'
+  o.on '--browse',      'Open the project on https://semaphoreci.com/'
 
-  o.on '--clean', 'Deletes the cached API query results'
+  o.on '--settings',    'Display most relevant settings'
+  o.on '--internals',   'Display all internal settings'
 
-  o.on '--projects', 'List all projects and their current status'
-  o.on '--branches', 'List all branches for the current project'
-  o.on '--status', 'List the build status for the current branch'
-  o.on '--history', 'List the build history for the current branch'
+  o.on '--branches',    'List all branches for the current project'
+  o.on '--status',      'List the build status for the current branch'
+  o.on '--history',     'List the build history for the current branch'
   o.on '--information', 'List the commit information for the last build'
-  o.on '--log', 'List the build log for the last build'
-  o.on '--rebuild', 'Rebuild last revision for the current branch'
+  o.on '--log',         'List the build log for the last build'
+  o.on '--rebuild',     'Rebuild last revision for the current branch'
 
-end
-
-if options.clean?
-  Git::Semaphore.empty_cache_dir
-  exit 0
-end
-
-if options.projects?
-  puts Git::Semaphore::Project.all.to_json
-  exit 0
 end
 
 project = if (git_repo = Git::Semaphore.git_repo)
@@ -59,51 +49,23 @@ project = if (git_repo = Git::Semaphore.git_repo)
             Git::Semaphore::Project.from_config(ENV)
           end
 
-if options.settings?
-  puts project.settings.to_json
-  exit 0
-end
+case
+when options.clean?       then Git::Semaphore.empty_cache_dir
+when options.projects?    then puts Git::Semaphore::Project.all.to_json
 
-if options.internals?
-  puts project.internals.to_json
-  exit 0
-end
+when options.browse?      then `open #{project.branch_url}`
 
-if options.browse?
-  `open #{project.branch_url}`
-  exit 0
-end
+when options.settings?    then puts project.settings.to_json
+when options.internals?   then puts project.internals.to_json
 
-if options.branches?
-  puts project.branches.to_json
-  exit 0
+when options.branches?    then puts project.branches.to_json
+when options.status?      then puts project.status.to_json
+when options.history?     then puts project.history.to_json
+when options.information? then puts project.information.to_json
+when options.log?         then puts project.log.to_json
+when options.rebuild?     then project.rebuild
+else
+  puts options
 end
-
-if options.status?
-  puts project.status.to_json
-  exit 0
-end
-
-if options.history?
-  puts project.history.to_json
-  exit 0
-end
-
-if options.information?
-  puts project.information.to_json
-  exit 0
-end
-
-if options.log?
-  puts project.log.to_json
-  exit 0
-end
-
-if options.rebuild?
-  puts project.rebuild
-  exit 0
-end
-
-puts options
 
 # That's all Folks!
