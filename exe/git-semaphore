@@ -104,6 +104,6 @@ if options.rebuild?
   exit 0
 end
 
-raise 'Coming soon!'
+puts options
 
 # That's all Folks!
