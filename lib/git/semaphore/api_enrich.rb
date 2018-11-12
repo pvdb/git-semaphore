@@ -28,7 +28,7 @@ module Git
               }
               build['duration'] = {
                 seconds: (finished_at - started_at).to_i,
-                minutes: format('%0.2f', (finished_at - started_at) / 60),
+                minutes: format('%0.2f', (finished_at - started_at) / 60).to_f,
               }
             end
           end

@@ -43,8 +43,8 @@ module Git
       FileUtils.rm_r Dir.glob(File.join(cache_dir, '*'))
     end
 
-    def self.from_json_cache(path)
-      if File.exist? path
+    def self.from_json_cache(path, refresh = false)
+      if !refresh && File.exist?(path)
         JSON.parse(File.read(path))
       else
         yield.tap do |content|

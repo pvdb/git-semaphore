@@ -109,32 +109,32 @@ module Git
       # API related queries
       #
 
-      def self.all
-        Git::Semaphore::API::Cache.projects(Git::Semaphore.auth_token)
+      def self.all(refresh = false)
+        Git::Semaphore::API::Cache.projects(refresh, Git::Semaphore.auth_token)
       end
 
       class << self
         alias_method :projects, :all
       end
 
-      def branches
-        Git::Semaphore::API::Cache.branches(project_hash_id, @auth_token)
+      def branches(refresh = false)
+        Git::Semaphore::API::Cache.branches(project_hash_id, refresh, @auth_token)
       end
 
-      def status
-        Git::Semaphore::API::Cache.status(project_hash_id, branch_id, @auth_token)
+      def status(refresh = false)
+        Git::Semaphore::API::Cache.status(project_hash_id, branch_id, refresh, @auth_token)
       end
 
-      def history
-        Git::Semaphore::API::Cache.history(project_hash_id, branch_id, @auth_token)
+      def history(refresh = false)
+        Git::Semaphore::API::Cache.history(project_hash_id, branch_id, refresh, @auth_token)
       end
 
-      def information
-        Git::Semaphore::API::Cache.information(project_hash_id, branch_id, build_number, @auth_token)
+      def information(refresh = false)
+        Git::Semaphore::API::Cache.information(project_hash_id, branch_id, build_number, refresh, @auth_token)
       end
 
-      def log
-        Git::Semaphore::API::Cache.log(project_hash_id, branch_id, build_number, @auth_token)
+      def log(refresh = false)
+        Git::Semaphore::API::Cache.log(project_hash_id, branch_id, build_number, refresh, @auth_token)
       end
 
       def rebuild

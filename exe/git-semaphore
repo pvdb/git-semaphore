@@ -26,10 +26,12 @@ options = Slop.parse(help: true) do |o|
     exit(0)
   end
 
-  o.on '--clean',       'Deletes the cached API query results'
+  o.on '--refresh',     'Bypass cached information and refresh from API'
+
   o.on '--projects',    'List all projects and their current status'
 
   o.on '--browse',      'Open the project on https://semaphoreci.com/'
+  o.on '--rebuild',     'Rebuild last revision for the current branch'
 
   o.on '--settings',    'Display most relevant settings'
   o.on '--internals',   'Display all internal settings'
@@ -39,7 +41,6 @@ options = Slop.parse(help: true) do |o|
   o.on '--history',     'List the build history for the current branch'
   o.on '--information', 'List the commit information for the last build'
   o.on '--log',         'List the build log for the last build'
-  o.on '--rebuild',     'Rebuild last revision for the current branch'
 
 end
 
@@ -72,22 +73,22 @@ class SafeProject
 end
 
 project = SafeProject.new(project)
+refresh = options.refresh?
 
 case
-when options.clean?       then Git::Semaphore.empty_cache_dir
-when options.projects?    then puts Git::Semaphore::Project.all.to_json
+when options.projects?    then puts Git::Semaphore::Project.all(refresh).to_json
 
 when options.browse?      then puts project.browse.to_json
+when options.rebuild?     then puts project.rebuild.to_json
 
 when options.settings?    then puts project.settings.to_json
 when options.internals?   then puts project.internals.to_json
 
-when options.branches?    then puts project.branches.to_json
-when options.status?      then puts project.status.to_json
-when options.history?     then puts project.history.to_json
-when options.information? then puts project.information.to_json
-when options.log?         then puts project.log.to_json
-when options.rebuild?     then puts project.rebuild.to_json
+when options.branches?    then puts project.branches(refresh).to_json
+when options.status?      then puts project.status(refresh).to_json
+when options.history?     then puts project.history(refresh).to_json
+when options.information? then puts project.information(refresh).to_json
+when options.log?         then puts project.log(refresh).to_json
 else
   puts options
 end
