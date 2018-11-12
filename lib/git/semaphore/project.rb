@@ -135,6 +135,11 @@ module Git
         Git::Semaphore::API.rebuild(project_hash_id, branch_id, @auth_token)
       end
 
+      def browse
+        `open #{branch_url}`
+        { url: branch_url }
+      end
+
       private
 
       def project_hash_for(owner, name)

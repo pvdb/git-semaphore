@@ -53,7 +53,7 @@ case
 when options.clean?       then Git::Semaphore.empty_cache_dir
 when options.projects?    then puts Git::Semaphore::Project.all.to_json
 
-when options.browse?      then `open #{project.branch_url}`
+when options.browse?      then puts project.browse.to_json
 
 when options.settings?    then puts project.settings.to_json
 when options.internals?   then puts project.internals.to_json
@@ -63,7 +63,7 @@ when options.status?      then puts project.status.to_json
 when options.history?     then puts project.history.to_json
 when options.information? then puts project.information.to_json
 when options.log?         then puts project.log.to_json
-when options.rebuild?     then project.rebuild
+when options.rebuild?     then puts project.rebuild.to_json
 else
   puts options
 end
