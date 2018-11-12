@@ -15,24 +15,30 @@ module Git
         end
 
         def self.history(project_hash_id, branch_id, auth_token)
-          API.history(project_hash_id, branch_id, auth_token).tap do |results|
-            results['builds'].each do |build|
-              # build['result'] = "passed", "failed", "stopped" or "pending"
-              next unless (started_at  = build['started_at'])
-              next unless (finished_at = build['finished_at'])
-              started_at  = Time.parse(started_at)
-              finished_at = Time.parse(finished_at)
-              build['date'] = {
-                started_at:  started_at.to_date,
-                finished_at: finished_at.to_date,
-              }
-              build['duration'] = {
-                seconds: (finished_at - started_at).to_i,
-                minutes: format('%0.2f', (finished_at - started_at) / 60).to_f,
-              }
+          API.history(project_hash_id, branch_id, auth_token).tap do |history|
+            history['builds'].each do |build|
+              enrich(build)
             end
           end
         end
+
+        def self.enrich(build)
+          # build['result'] = "passed", "failed", "stopped" or "pending"
+          return unless (started_at  = build['started_at'])
+          return unless (finished_at = build['finished_at'])
+          started_at  = Time.parse(started_at)
+          finished_at = Time.parse(finished_at)
+          build['date'] = {
+            started_at:  started_at.to_date,
+            finished_at: finished_at.to_date,
+          }
+          build['duration'] = {
+            seconds: (finished_at - started_at).to_i,
+            minutes: format('%0.2f', (finished_at - started_at) / 60).to_f,
+          }
+        end
+
+        private_class_method :enrich
 
       end
     end
