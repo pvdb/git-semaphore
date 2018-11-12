@@ -22,6 +22,12 @@ module Git
           end
         end
 
+        def self.status(project_hash_id, branch_id, auth_token)
+          API.status(project_hash_id, branch_id, auth_token).tap do |status|
+            enrich(status)
+          end
+        end
+
         def self.enrich(build)
           # build['result'] = "passed", "failed", "stopped" or "pending"
           return unless (started_at  = build['started_at'])

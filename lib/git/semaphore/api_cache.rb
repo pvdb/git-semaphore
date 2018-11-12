@@ -17,7 +17,7 @@ module Git
 
         def self.status(project_hash_id, branch_id, refresh, auth_token)
           @status ||= Git::Semaphore.from_json_cache(status_cache(project_hash_id, branch_id), refresh) do
-            API.status project_hash_id, branch_id, auth_token
+            API::Enrich.status project_hash_id, branch_id, auth_token
           end
         end
 
