@@ -1,3 +1,7 @@
+Layout/AlignHash:
+  Enabled: false
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
 Layout/EmptyLinesAroundBlockBody:
   Enabled: false
 Layout/EmptyLinesAroundClassBody:
@@ -30,7 +34,9 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 Style/SingleLineMethods:
   Enabled: false
-Style/TrailingCommaInLiteral:
-  Enabled: false
 Style/TrailingCommaInArguments:
+  Enabled: false
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+Style/TrailingCommaInHashLiteral:
   Enabled: false
