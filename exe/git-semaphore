@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-lib = File.expand_path('../../lib', __FILE__)
+lib = File.expand_path('../lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'git/semaphore'
 
@@ -51,7 +51,8 @@ project = if (git_repo = Git::Semaphore.git_repo)
           end
 
 class SafeProject
-  # rubocop:disable Style/MethodMissing
+  # rubocop:disable Style/MethodMissingSuper
+  # rubocop:disable Style/MissingRespondToMissing
 
   def initialize(project)
     @project = project
@@ -69,7 +70,8 @@ class SafeProject
     @project.respond_to? name, include_all
   end
 
-  # rubocop:enable Style/MethodMissing
+  # rubocop:enable Style/MissingRespondToMissing
+  # rubocop:enable Style/MethodMissingSuper
 end
 
 project = SafeProject.new(project)

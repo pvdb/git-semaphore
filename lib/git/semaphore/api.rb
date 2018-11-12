@@ -105,9 +105,8 @@ module Git
         end
 
         def response.json_body
-          unless self['content-type'].match?(%r{application/json})
-            raise 'JSON response expected'
-          end
+          raise 'JSON response expected' \
+            unless self['content-type'].match?(%r{application/json})
           JSON.parse(body)
         end
 
