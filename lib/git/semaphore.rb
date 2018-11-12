@@ -63,12 +63,16 @@ module Git
       @env_auth_token ||= ENV['SEMAPHORE_AUTH_TOKEN']
     end
 
+    def self.global_auth_token
+      Rugged::Config.global['semaphore.authtoken']
+    end
+
     def self.git_auth_token
       git_repo&.config&.get('semaphore.authtoken')
     end
 
     def self.auth_token
-      git_auth_token || env_auth_token
+      git_auth_token || global_auth_token || env_auth_token
     end
 
   end
