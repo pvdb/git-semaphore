@@ -24,6 +24,8 @@ module Git
         )
       end
 
+      attr_accessor :owner, :name, :full_name
+
       def initialize(full_name, branch_name = nil, options = {})
         @auth_token   = Git::Semaphore.auth_token
         @full_name    = full_name
@@ -31,6 +33,10 @@ module Git
         @branch_name  = branch_name || 'master'
         @commit_sha   = options[:commit_sha]
         @build_number = options[:build_number]
+      end
+
+      def exist?
+        !project_hash.nil?
       end
 
       def settings

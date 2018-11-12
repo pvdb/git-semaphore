@@ -49,6 +49,30 @@ project = if (git_repo = Git::Semaphore.git_repo)
             Git::Semaphore::Project.from_config(ENV)
           end
 
+class SafeProject
+  # rubocop:disable Style/MethodMissing
+
+  def initialize(project)
+    @project = project
+  end
+
+  def method_missing(name, *args, &block)
+    if @project.exist?
+      @project.send(name, *args, &block)
+    else
+      { error: "Project #{@project.full_name} doesn't exist on semaphoreci.com" }
+    end
+  end
+
+  def respond_to?(name, include_all = false)
+    @project.respond_to? name, include_all
+  end
+
+  # rubocop:enable Style/MethodMissing
+end
+
+project = SafeProject.new(project)
+
 case
 when options.clean?       then Git::Semaphore.empty_cache_dir
 when options.projects?    then puts Git::Semaphore::Project.all.to_json
