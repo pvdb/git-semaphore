@@ -17,7 +17,12 @@ options = Slop.parse(help: true) do |o|
   BANNER
 
   o.on '--version', 'Print the version' do
-    puts Git::Semaphore::LONG_VERSION
+    dependencies = [
+      "rugged v#{Rugged::VERSION}",
+      "#{RUBY_ENGINE} #{RUBY_VERSION}p#{RUBY_PATCHLEVEL}",
+    ].join(', ')
+
+    puts "#{Git::Semaphore::NAME} v#{Git::Semaphore::VERSION} (#{dependencies})"
     exit(0)
   end
 
