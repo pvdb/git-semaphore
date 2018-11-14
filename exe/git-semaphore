@@ -37,6 +37,7 @@ options = Slop.parse(help: true) do |o|
 
   o.on '--browse',      'Open the project on https://semaphoreci.com/'
   o.on '--rebuild',     'Rebuild last revision for the current branch'
+  o.on '--result',      'Latest un-cached build result for the current branch'
 
   o.on '--settings',    'Display most relevant settings'
   o.on '--internals',   'Display all internal settings'
@@ -87,6 +88,7 @@ when options.projects?    then puts Git::Semaphore::Project.all(refresh).to_json
 
 when options.browse?      then puts project.browse.to_json
 when options.rebuild?     then puts project.rebuild.to_json
+when options.result?      then puts project.result
 
 when options.settings?    then puts project.settings.to_json
 when options.internals?   then puts project.internals.to_json
