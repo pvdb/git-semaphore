@@ -64,6 +64,14 @@ class SafeProject
     @project = project
   end
 
+  def result
+    return unless @project.exist?
+
+    @project.branches(true)        # refresh
+    status = @project.status(true) # refresh
+    status.fetch('result', nil)
+  end
+
   def method_missing(name, *args, &block)
     if @project.exist?
       @project.send(name, *args, &block)
@@ -88,7 +96,7 @@ when options.projects?    then puts Git::Semaphore::Project.all(refresh).to_json
 
 when options.browse?      then puts project.browse.to_json
 when options.rebuild?     then puts project.rebuild.to_json
-when options.result?      then puts project.result
+when options.result?      then (result = project.result) && puts(result)
 
 when options.settings?    then puts project.settings.to_json
 when options.internals?   then puts project.internals.to_json

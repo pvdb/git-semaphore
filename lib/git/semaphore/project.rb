@@ -141,11 +141,6 @@ module Git
         Git::Semaphore::API.rebuild(project_hash_id, branch_id, @auth_token)
       end
 
-      def result
-        Git::Semaphore::API.status(project_hash_id, branch_id, @auth_token)\
-        ['result'] # the latest un-cached build result for the current branch
-      end
-
       def browse
         `open #{branch_url}`
         { url: branch_url }
