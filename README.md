@@ -100,7 +100,16 @@ For performance reasons _(especially for Semaphore API calls that are paginated)
 
 This means that running `git semaphore` commands may return stale data, in cases where things have changed on `semaphoreci.com` since the last time `git semaphore` was run.
 
-To delete the cache - and force a refresh of the Semaphore data on the next API call - use the `git semaphore --clean` command... this will empty out the entire `${HOME}/.git/semaphore` cache directory.
+To update the cached results, the following commands support the `--refresh` flag:
+
+* `--projects`
+* `--branches`
+* `--status`
+* `--history`
+* `--information`
+* `--log`
+
+Without the `-refresh` flag, these options will always return cached - and possibly stale - results _(if they were invoked previously, that is, in which case the cache was populated)_, but when the `--refresh` flag is used, they will all make a new API call and return the most up-to-date SemaphoreCI data _(and update the cached data as a side effect)_.
 
 ## Integration with `git`
 
