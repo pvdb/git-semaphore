@@ -1,3 +1,10 @@
+AllCops:
+  Exclude:
+    - 'doc/*'
+    - 'tmp/*'
+    - 'pkg/*'
+    - 'vendor/**/*'
+
 Layout/AlignHash:
   Enabled: false
 Layout/EmptyLineAfterGuardClause:

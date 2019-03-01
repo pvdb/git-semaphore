@@ -18,6 +18,7 @@ end
 
 module Git
   module Semaphore
+    class Error < StandardError; end
 
     def self.home_dir
       @home_dir ||= begin

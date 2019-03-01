@@ -2,6 +2,10 @@ require 'test_helper'
 
 module Git
   class SemaphoreTest < Minitest::Test
+    def test_that_it_has_a_name
+      refute_nil ::Git::Semaphore::NAME
+    end
+
     def test_that_it_has_a_version_number
       refute_nil ::Git::Semaphore::VERSION
     end
