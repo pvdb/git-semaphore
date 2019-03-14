@@ -38,6 +38,14 @@ module Git
             started_at:  started_at.to_date,
             finished_at: finished_at.to_date,
           }
+          build['iso8601'] = {
+            started_at:  started_at.utc.iso8601,
+            finished_at: finished_at.utc.iso8601,
+          }
+          build['epoch'] = {
+            started_at:  started_at.to_f,
+            finished_at: finished_at.to_f,
+          }
           build['duration'] = {
             seconds: (finished_at - started_at).to_i,
             minutes: format('%0.2f', (finished_at - started_at) / 60).to_f,
