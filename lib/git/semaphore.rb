@@ -10,6 +10,8 @@ require 'faraday'
 require 'nitlink'
 require 'rugged'
 
+require 'ext/faraday'
+
 module Rugged
   class Repository
     def owner()     File.basename(File.dirname(workdir)); end
