@@ -3,8 +3,8 @@ module Git
     class API
       class Enrich
 
-        def self.projects(auth_token)
-          API.projects(auth_token).tap do |results|
+        def self.projects
+          API.projects.tap do |results|
             results.each do |project|
               # full repository name on github.com: 'pvdb/git-semaphore'
               project['full_name']  = [project['owner'], project['name']].join('/')
@@ -14,16 +14,16 @@ module Git
           end
         end
 
-        def self.history(project_hash_id, branch_id, auth_token)
-          API.history(project_hash_id, branch_id, auth_token).tap do |history|
+        def self.history(project_hash_id, branch_id)
+          API.history(project_hash_id, branch_id).tap do |history|
             history['builds'].each do |build|
               enrich(build)
             end
           end
         end
 
-        def self.status(project_hash_id, branch_id, auth_token)
-          API.status(project_hash_id, branch_id, auth_token).tap do |status|
+        def self.status(project_hash_id, branch_id)
+          API.status(project_hash_id, branch_id).tap do |status|
             enrich(status)
           end
         end

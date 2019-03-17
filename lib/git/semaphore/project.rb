@@ -110,7 +110,7 @@ module Git
       #
 
       def self.all(refresh = false)
-        Git::Semaphore::API::Cache.projects(refresh, Git::Semaphore.auth_token)
+        Git::Semaphore::API::Cache.projects(refresh)
       end
 
       class << self
@@ -118,27 +118,27 @@ module Git
       end
 
       def branches(refresh = false)
-        Git::Semaphore::API::Cache.branches(project_hash_id, refresh, @auth_token)
+        Git::Semaphore::API::Cache.branches(project_hash_id, refresh)
       end
 
       def status(refresh = false)
-        Git::Semaphore::API::Cache.status(project_hash_id, branch_id, refresh, @auth_token)
+        Git::Semaphore::API::Cache.status(project_hash_id, branch_id, refresh)
       end
 
       def history(refresh = false)
-        Git::Semaphore::API::Cache.history(project_hash_id, branch_id, refresh, @auth_token)
+        Git::Semaphore::API::Cache.history(project_hash_id, branch_id, refresh)
       end
 
       def information(refresh = false)
-        Git::Semaphore::API::Cache.information(project_hash_id, branch_id, build_number, refresh, @auth_token)
+        Git::Semaphore::API::Cache.information(project_hash_id, branch_id, build_number, refresh)
       end
 
       def log(refresh = false)
-        Git::Semaphore::API::Cache.log(project_hash_id, branch_id, build_number, refresh, @auth_token)
+        Git::Semaphore::API::Cache.log(project_hash_id, branch_id, build_number, refresh)
       end
 
       def rebuild
-        Git::Semaphore::API.rebuild(project_hash_id, branch_id, @auth_token)
+        Git::Semaphore::API.rebuild(project_hash_id, branch_id)
       end
 
       def browse
