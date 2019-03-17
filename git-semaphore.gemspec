@@ -25,6 +25,8 @@ Gem::Specification.new do |spec|
 
   spec.post_install_message = Git::Semaphore::PIM
 
+  spec.add_dependency 'faraday', '~> 0.15'
+  spec.add_dependency 'nitlink', '~> 1.1'
   spec.add_dependency 'rugged', '~> 0.27'
   spec.add_dependency 'slop', '~> 4.6'
 

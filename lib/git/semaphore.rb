@@ -6,6 +6,8 @@ require 'openssl'
 require 'net/http'
 require 'fileutils'
 
+require 'faraday'
+require 'nitlink'
 require 'rugged'
 
 module Rugged
