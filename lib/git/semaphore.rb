@@ -86,6 +86,8 @@ end
 
 require 'git/semaphore/version'
 
+require 'semaphore_ci/api'
+
 require 'git/semaphore/api'
 require 'git/semaphore/api_cache'
 require 'git/semaphore/api_enrich'
