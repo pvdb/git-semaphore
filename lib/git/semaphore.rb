@@ -11,6 +11,7 @@ require 'nitlink'
 require 'rugged'
 
 require 'ext/faraday'
+require 'ext/nitlink'
 
 module Rugged
   class Repository
