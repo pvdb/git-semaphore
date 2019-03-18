@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    git-semaphore (2.8.0)
+    git-semaphore (3.0.0)
       faraday (~> 0.15)
       nitlink (~> 1.1)
       rugged (~> 0.27)

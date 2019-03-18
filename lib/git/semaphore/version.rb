@@ -1,7 +1,7 @@
 module Git
   module Semaphore
     NAME = 'git-semaphore'.freeze
-    VERSION = '2.8.0'.freeze
+    VERSION = '3.0.0'.freeze
 
     def self.version
       "#{NAME} v#{VERSION}"
