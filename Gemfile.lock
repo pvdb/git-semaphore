@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    git-semaphore (3.0.0)
+    git-semaphore (3.1.0)
       faraday (~> 0.15)
       nitlink (~> 1.1)
       rugged (~> 0.27)
@@ -18,7 +18,7 @@ GEM
     jaro_winkler (1.5.2)
     method_source (0.9.2)
     minitest (5.11.3)
-    multipart-post (2.0.0)
+    multipart-post (2.1.1)
     nitlink (1.1.0)
     parallel (1.14.0)
     parser (2.6.0.0)
@@ -43,8 +43,8 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.4.0)
     ruby-progressbar (1.10.0)
-    rugged (0.28.1)
-    slop (4.6.2)
+    rugged (0.28.2)
+    slop (4.7.0)
     unicode-display_width (1.4.1)
 
 PLATFORMS
